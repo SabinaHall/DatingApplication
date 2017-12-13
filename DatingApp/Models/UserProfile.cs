@@ -23,7 +23,7 @@ namespace DatingApp.Models
         [Display(Name = "Ålder")]
         public int Age { get; set; }
 
-        //public int LoginId { get; set; }
+        public int LoginId { get; set; }
         public virtual Login Login { get; set; }
     }
 }
