@@ -14,7 +14,6 @@ namespace DatingApp.Models
         [Display(Name = "Förnamn")]
         public string Firstname { get; set; }
 
-        [Required]
         [Display(Name = "Efternamn")]
         public string Lastname { get; set; }
 

@@ -148,6 +148,7 @@
     </Compile>
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Post.cs" />
+    <Compile Include="Models\UserProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
