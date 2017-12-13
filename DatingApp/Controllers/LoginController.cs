@@ -17,7 +17,8 @@ namespace DatingApp.Controllers
         // GET: Login
         public ActionResult Index()
         {
-            return View(db.Logins.ToList());
+            var logins = db.Logins.Include(l => l.UserProfile);
+            return View(logins.ToList());
         }
 
         // GET: Login/Details/5
@@ -38,6 +39,7 @@ namespace DatingApp.Controllers
         // GET: Login/Create
         public ActionResult Create()
         {
+            ViewBag.UserProfileId = new SelectList(db.UserProfiles, "Id", "Firstname");
             return View();
         }
 
@@ -46,15 +48,16 @@ namespace DatingApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Email,Password")] Login login)
+        public ActionResult Create([Bind(Include = "Id,Email,Password,UserProfileId")] Login login)
         {
             if (ModelState.IsValid)
             {
                 db.Logins.Add(login);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
 
+            ViewBag.UserProfileId = new SelectList(db.UserProfiles, "Id", "Firstname", login.UserProfileId);
             return View(login);
         }
 
@@ -70,6 +73,7 @@ namespace DatingApp.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.UserProfileId = new SelectList(db.UserProfiles, "Id", "Firstname", login.UserProfileId);
             return View(login);
         }
 
@@ -78,7 +82,7 @@ namespace DatingApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Email,Password")] Login login)
+        public ActionResult Edit([Bind(Include = "Id,Email,Password,UserProfileId")] Login login)
         {
             if (ModelState.IsValid)
             {
@@ -86,6 +90,7 @@ namespace DatingApp.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.UserProfileId = new SelectList(db.UserProfiles, "Id", "Firstname", login.UserProfileId);
             return View(login);
         }
 

@@ -9,7 +9,7 @@ namespace DatingApp.Models
 {
     public class Login
     {
-        //[ForeignKey ("Models.Login")]
+       
         public int Id { get; set; }
 
         [Required]
@@ -22,7 +22,7 @@ namespace DatingApp.Models
         [StringLength(30, MinimumLength = 6, ErrorMessage = "Invalid")]
         public string Password { get; set; }
 
-        //public int UserProfileId { get; set; }
+        public int UserProfileId { get; set; }
         public virtual UserProfile UserProfile { get; set; }
     }
 }

@@ -9,8 +9,7 @@ namespace DatingApp.Models
 {
     public class UserProfile
     {
-
-        //[ForeignKey("Models.UserProfile")]
+      
         public int Id { get; set; }
 
         [Required]
