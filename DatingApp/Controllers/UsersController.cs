@@ -10,112 +10,107 @@ using DatingApp.Models;
 
 namespace DatingApp.Controllers
 {
-    public class LoginController : Controller
+    public class UsersController : Controller
     {
         private MyDataContext db = new MyDataContext();
 
-        // GET: Login
+        // GET: Users
         public ActionResult Index()
         {
-            var logins = db.Logins.Include(l => l.UserProfile);
-            return View(logins.ToList());
+            return View(db.UserProfiles.ToList());
         }
 
-        // GET: Login/Details/5
+        // GET: Users/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Login login = db.Logins.Find(id);
-            if (login == null)
+            User user = db.UserProfiles.Find(id);
+            if (user == null)
             {
                 return HttpNotFound();
             }
-            return View(login);
+            return View(user);
         }
 
-        // GET: Login/Create
+        // GET: Users/Create
         public ActionResult Create()
         {
-            ViewBag.UserProfileId = new SelectList(db.UserProfiles, "Id", "Firstname");
             return View();
         }
 
-        // POST: Login/Create
+        // POST: Users/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Email,Password,UserProfileId")] Login login)
+        public ActionResult Create([Bind(Include = "Id,Firstname,Lastname,Age,Email,Password")] User user)
         {
             if (ModelState.IsValid)
             {
-                db.Logins.Add(login);
+                db.UserProfiles.Add(user);
                 db.SaveChanges();
                 return RedirectToAction("Index", "Home");
             }
 
-            ViewBag.UserProfileId = new SelectList(db.UserProfiles, "Id", "Firstname", login.UserProfileId);
-            return View(login);
+            return View(user);
         }
 
-        // GET: Login/Edit/5
+        // GET: Users/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Login login = db.Logins.Find(id);
-            if (login == null)
+            User user = db.UserProfiles.Find(id);
+            if (user == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.UserProfileId = new SelectList(db.UserProfiles, "Id", "Firstname", login.UserProfileId);
-            return View(login);
+            return View(user);
         }
 
-        // POST: Login/Edit/5
+        // POST: Users/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Email,Password,UserProfileId")] Login login)
+        public ActionResult Edit([Bind(Include = "Id,Firstname,Lastname,Age,Email,Password")] User user)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(login).State = EntityState.Modified;
+                db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.UserProfileId = new SelectList(db.UserProfiles, "Id", "Firstname", login.UserProfileId);
-            return View(login);
+            return View(user);
         }
 
-        // GET: Login/Delete/5
+        // GET: Users/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Login login = db.Logins.Find(id);
-            if (login == null)
+            User user = db.UserProfiles.Find(id);
+            if (user == null)
             {
                 return HttpNotFound();
             }
-            return View(login);
+            return View(user);
         }
 
-        // POST: Login/Delete/5
+        // POST: Users/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Login login = db.Logins.Find(id);
-            db.Logins.Remove(login);
+            User user = db.UserProfiles.Find(id);
+            db.UserProfiles.Remove(user);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
