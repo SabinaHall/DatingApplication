@@ -7,10 +7,8 @@ using System.Web;
 
 namespace DatingApp.Models
 {
-    public class UserProfile
+    public class User
     {
-        //[Key]
-        //[ForeignKey("Login")]
         public int Id { get; set; }
 
         [Required]
@@ -25,7 +23,14 @@ namespace DatingApp.Models
         [Display(Name = "Ålder")]
         public int Age { get; set; }
 
-        public int LoginId { get; set; }
-        public virtual Login Login { get; set; }
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Epost, användarnamn")]
+        public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "Lösenord")]
+        [StringLength(30, MinimumLength = 6, ErrorMessage = "Invalid")]
+        public string Password { get; set; }
     }
 }

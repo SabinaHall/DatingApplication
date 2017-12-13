@@ -14,16 +14,16 @@ namespace DatingApp.Models
 
         }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Login>()
-                .HasRequired(x => x.UserProfile)
-                .WithMany()
-                .WillCascadeOnDelete(false);
-            base.OnModelCreating(modelBuilder);
-        }
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<Login>()
+        //        .HasRequired(x => x.UserProfile)
+        //        .WithMany()
+        //        .WillCascadeOnDelete(false);
+        //    base.OnModelCreating(modelBuilder);
+        //}
 
-        public DbSet<UserProfile> UserProfiles{ get; set; }
+        public DbSet<User> UserProfiles{ get; set; }
         public DbSet<Login> Logins { get; set; }
         public DbSet<Post> Posts { get; set; }
     }
