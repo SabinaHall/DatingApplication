@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -9,7 +8,7 @@ namespace DatingApp.Models
 {
     public class UserProfile
     {
-        [Key]
+        
         public int Id { get; set; }
 
         [Required]
@@ -24,7 +23,7 @@ namespace DatingApp.Models
         [Display(Name = "Ålder")]
         public int Age { get; set; }
 
-        [ForeignKey("LoginId")]
+        //public int LoginId { get; set; }
         public virtual Login Login { get; set; }
     }
 }

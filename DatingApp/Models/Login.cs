@@ -8,17 +8,20 @@ namespace DatingApp.Models
 {
     public class Login
     {
-        [Key]
-        public int LoginId { get; set; }
+       
+        public int Id { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Epost")]
         public string Email { get; set; }
+
         [Required]
         [Display (Name = "Lösenord")]
         [StringLength(30, MinimumLength = 6, ErrorMessage = "Invalid")]
         public string Password { get; set; }
 
-        public virtual ICollection<UserProfile> UserProfiles { get; set; }
+        //public int UserProfileId { get; set; }
+        public virtual UserProfile UserProfile { get; set; }
     }
 }
