@@ -9,7 +9,7 @@ namespace DatingApp.Models
 {
     public class Login
     {
-        [ForeignKey ("Models.Login")]
+        //[ForeignKey ("Models.Login")]
         public int Id { get; set; }
 
         [Required]
