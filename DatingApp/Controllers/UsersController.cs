@@ -17,7 +17,7 @@ namespace DatingApp.Controllers
         // GET: Users
         public ActionResult Index()
         {
-            return View(db.UserProfiles.ToList());
+            return View(db.User.ToList());
         }
 
         // GET: Users/Details/5
@@ -27,7 +27,7 @@ namespace DatingApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.UserProfiles.Find(id);
+            User user = db.User.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -50,7 +50,7 @@ namespace DatingApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.UserProfiles.Add(user);
+                db.User.Add(user);
                 db.SaveChanges();
                 return RedirectToAction("Index", "Home");
             }
@@ -65,7 +65,7 @@ namespace DatingApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.UserProfiles.Find(id);
+            User user = db.User.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -96,7 +96,7 @@ namespace DatingApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.UserProfiles.Find(id);
+            User user = db.User.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -109,8 +109,8 @@ namespace DatingApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            User user = db.UserProfiles.Find(id);
-            db.UserProfiles.Remove(user);
+            User user = db.User.Find(id);
+            db.User.Remove(user);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

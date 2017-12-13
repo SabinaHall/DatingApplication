@@ -23,7 +23,7 @@ namespace DatingApp.Models
         //    base.OnModelCreating(modelBuilder);
         //}
 
-        public DbSet<User> UserProfiles{ get; set; }
+        public DbSet<User> User{ get; set; }
         public DbSet<Login> Logins { get; set; }
         public DbSet<Post> Posts { get; set; }
     }
