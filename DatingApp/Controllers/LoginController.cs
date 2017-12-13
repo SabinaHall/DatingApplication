@@ -54,7 +54,7 @@ namespace DatingApp.Controllers
             {
                 db.Logins.Add(login);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
 
             ViewBag.UserProfileId = new SelectList(db.UserProfiles, "Id", "Firstname", login.UserProfileId);
