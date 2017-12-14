@@ -123,5 +123,42 @@ namespace DatingApp.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Login(User user)
+        {
+            using (MyDataContext db = new MyDataContext())
+            {
+              var usr = db.User.Where(u => u.Email == user.Email && u.Password == user.Password).FirstOrDefault();
+              if(usr != null)
+                {
+                    Session["Id"] = usr.Id.ToString();
+                    Session["Email"] = usr.Email.ToString();
+                    return RedirectToAction("Loggedin");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Email or Password is invalid");
+                }
+            }
+            return View();
+        }
+
+        public ActionResult LoggedIn()
+        {
+            if(Session["Id"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("index", "Home");
+            }
+        }
     }
 }
