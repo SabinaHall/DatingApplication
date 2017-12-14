@@ -2,48 +2,35 @@
     ViewBag.Title = "Home Page";
 }
 
+<br />
+
 <div class="jumbotron">
     <h1>@DatingApp.Resources.HomeText.Login</h1>
     <br />
-    <form>
 
-        <div class="form-group">
-            <label for="inputlg"><b>@DatingApp.Resources.HomeText.Emailadress</b></label>
-            <br />
-            <input class="form-control input-lg" id="inputsm" type="text" placeholder=@DatingApp.Resources.HomeText.Username name="uname">
-
-
-
-            <label for="inputlg"><b>@DatingApp.Resources.HomeText.Password</b></label>
-            <br />
-            <input class="form-control input-lg" id="inputsm" type="password" placeholder=@DatingApp.Resources.HomeText.Password name="psw">
-
-        </div>
-
-    </form>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">@DatingApp.Resources.HomeText.Login&raquo;</a></p>
+    <p><a href="~/Users/Login" class="btn btn-primary btn-lg">@DatingApp.Resources.HomeText.Login &raquo;</a></p>
 </div>
 
-    <div class="jumbotron">
-        <h2>@DatingApp.Resources.HomeText.Register</h2>
-        <p class="lead"></p>
-        <p><a href="~/Users/Create" class="btn btn-primary btn-lg">@DatingApp.Resources.HomeText.Click&raquo;</a></p>
-    </div>
+<div class="jumbotron">
+    <h2>@DatingApp.Resources.HomeText.Register</h2>
+    <p class="lead"></p>
+    <p><a href="~/Users/Create" class="btn btn-primary btn-lg">@DatingApp.Resources.HomeText.Click &raquo;</a></p>
+</div>
 
-    <div class="row">
-        <div class="col-md-4">
-            <h2>Julia</h2>
-            <img src="~/Content/bild1.jpg" />
-            <p>Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
-        </div>
-        <div class="col-md-4">
-            <h2>Sabina</h2>
-            <img src="~/Content/bild2.jpg" />
-            <p>Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
-        </div>
-        <div class="col-md-4">
-            <h2>Filippa</h2>
-            <img src="~/Content/bild3.jpg" />
-            <p>Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
-        </div>
+<div class="row">
+    <div class="col-md-4">
+        <h2>Julia</h2>
+        <img src="~/Content/bild1.jpg" />
+        <p>Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
     </div>
+    <div class="col-md-4">
+        <h2>Sabina</h2>
+        <img src="~/Content/bild2.jpg" />
+        <p>Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+    </div>
+    <div class="col-md-4">
+        <h2>Filippa</h2>
+        <img src="~/Content/bild3.jpg" />
+        <p>Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+    </div>
+</div>
