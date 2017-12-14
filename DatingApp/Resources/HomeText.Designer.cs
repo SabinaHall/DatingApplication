@@ -79,6 +79,15 @@ namespace DatingApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Emailadress.
+        /// </summary>
+        public static string Emailadress {
+            get {
+                return ResourceManager.GetString("Emailadress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         public static string Home {
@@ -93,6 +102,42 @@ namespace DatingApp.Resources {
         public static string Language {
             get {
                 return ResourceManager.GetString("Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login.
+        /// </summary>
+        public static string Login {
+            get {
+                return ResourceManager.GetString("Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password.
+        /// </summary>
+        public static string Password {
+            get {
+                return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ss.
+        /// </summary>
+        public static string ss {
+            get {
+                return ResourceManager.GetString("ss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ss.
+        /// </summary>
+        public static string sss {
+            get {
+                return ResourceManager.GetString("sss", resourceCulture);
             }
         }
     }

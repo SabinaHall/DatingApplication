@@ -123,10 +123,19 @@
   <data name="Contact" xml:space="preserve">
     <value>Kontakt</value>
   </data>
+  <data name="Emailadress" xml:space="preserve">
+    <value>Epostadress</value>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>Hem</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>Språk</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Logga in</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Lösenord</value>
   </data>
 </root>

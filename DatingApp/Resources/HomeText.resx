@@ -123,10 +123,25 @@
   <data name="Contact" xml:space="preserve">
     <value>Contact</value>
   </data>
+  <data name="Emailadress" xml:space="preserve">
+    <value>Emailadress</value>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>Home</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>Language</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="ss" xml:space="preserve">
+    <value>ss</value>
+  </data>
+  <data name="sss" xml:space="preserve">
+    <value>ss</value>
   </data>
 </root>
