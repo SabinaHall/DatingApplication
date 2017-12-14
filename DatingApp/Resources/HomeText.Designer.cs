@@ -61,11 +61,11 @@ namespace DatingApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to About.
+        ///   Looks up a localized string similar to Click here.
         /// </summary>
-        public static string About {
+        public static string Click {
             get {
-                return ResourceManager.GetString("About", resourceCulture);
+                return ResourceManager.GetString("Click", resourceCulture);
             }
         }
         
@@ -88,11 +88,11 @@ namespace DatingApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Home.
+        ///   Looks up a localized string similar to Friends.
         /// </summary>
-        public static string Home {
+        public static string Friends {
             get {
-                return ResourceManager.GetString("Home", resourceCulture);
+                return ResourceManager.GetString("Friends", resourceCulture);
             }
         }
         
@@ -124,20 +124,38 @@ namespace DatingApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ss.
+        ///   Looks up a localized string similar to Profile.
         /// </summary>
-        public static string ss {
+        public static string Profile {
             get {
-                return ResourceManager.GetString("ss", resourceCulture);
+                return ResourceManager.GetString("Profile", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ss.
+        ///   Looks up a localized string similar to Do you want to register?.
         /// </summary>
-        public static string sss {
+        public static string Register {
             get {
-                return ResourceManager.GetString("sss", resourceCulture);
+                return ResourceManager.GetString("Register", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search.
+        /// </summary>
+        public static string Search {
+            get {
+                return ResourceManager.GetString("Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username.
+        /// </summary>
+        public static string Username {
+            get {
+                return ResourceManager.GetString("Username", resourceCulture);
             }
         }
     }
