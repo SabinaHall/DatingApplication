@@ -160,5 +160,14 @@ namespace DatingApp.Controllers
                 return RedirectToAction("index", "Home");
             }
         }
+
+        public ActionResult LogOut()
+        {
+
+            Session.Clear();
+
+            return RedirectToAction("index", "Home");
+
+        }
     }
 }
