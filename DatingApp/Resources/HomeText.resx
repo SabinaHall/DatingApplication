@@ -117,8 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="About" xml:space="preserve">
-    <value>About</value>
+  <data name="Click" xml:space="preserve">
+    <value>Click here</value>
   </data>
   <data name="Contact" xml:space="preserve">
     <value>Contact</value>
@@ -126,8 +126,8 @@
   <data name="Emailadress" xml:space="preserve">
     <value>Emailadress</value>
   </data>
-  <data name="Home" xml:space="preserve">
-    <value>Home</value>
+  <data name="Friends" xml:space="preserve">
+    <value>Friends</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>Language</value>
@@ -138,10 +138,16 @@
   <data name="Password" xml:space="preserve">
     <value>Password</value>
   </data>
-  <data name="ss" xml:space="preserve">
-    <value>ss</value>
+  <data name="Profile" xml:space="preserve">
+    <value>Profile</value>
   </data>
-  <data name="sss" xml:space="preserve">
-    <value>ss</value>
+  <data name="Register" xml:space="preserve">
+    <value>Do you want to register?</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Username</value>
   </data>
 </root>
