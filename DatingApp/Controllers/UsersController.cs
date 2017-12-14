@@ -52,7 +52,7 @@ namespace DatingApp.Controllers
             {
                 db.User.Add(user);
                 db.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Create", "Users");
             }
 
             return View(user);
@@ -139,6 +139,9 @@ namespace DatingApp.Controllers
                 {
                     Session["Id"] = usr.Id.ToString();
                     Session["Email"] = usr.Email.ToString();
+                    Session["Firstname"] = usr.Firstname.ToString();
+                    Session["Lastname"] = usr.Lastname.ToString();
+                    Session["Age"] = usr.Age.ToString();
                     return RedirectToAction("Loggedin");
                 }
                 else

@@ -5,14 +5,16 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Login</h2>
 
-@using (Html.BeginForm()) 
+
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
+    <br />
+
     <div class="form-horizontal">
-        <h4>User</h4>
+        <h3 class="breadcrumb">Skriv in ditt namn och lösenord.</h3>
         <hr />
 
         <div class="form-group">
@@ -33,12 +35,11 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Login" class="btn btn-default" />
+                <input type="submit" value="Logga in &raquo;" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+<div class="clearfix">
 </div>
