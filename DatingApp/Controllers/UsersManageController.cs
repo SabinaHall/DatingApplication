@@ -8,20 +8,19 @@ using System.Web;
 using System.Web.Mvc;
 using DatingApp.Models;
 
-
 namespace DatingApp.Controllers
 {
-    public class UsersController : Controller
+    public class UsersManageController : Controller
     {
         private MyDataContext db = new MyDataContext();
 
-        // GET: Users
+        // GET: UsersManage
         public ActionResult Index()
         {
             return View(db.User.ToList());
         }
 
-        // GET: Users/Details/5
+        // GET: UsersManage/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -36,13 +35,13 @@ namespace DatingApp.Controllers
             return View(user);
         }
 
-        // GET: Users/Create
+        // GET: UsersManage/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Users/Create
+        // POST: UsersManage/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -53,14 +52,14 @@ namespace DatingApp.Controllers
             {
                 db.User.Add(user);
                 db.SaveChanges();
-                return RedirectToAction("Create", "Users");
+                return RedirectToAction("Index");
             }
 
             return View(user);
         }
 
-        // GET: Users/Edit/5
-        public ActionResult Edit(int? id) 
+        // GET: UsersManage/Edit/5
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -74,23 +73,32 @@ namespace DatingApp.Controllers
             return View(user);
         }
 
-        // POST: Users/Edit/5
+        // POST: UsersManage/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Firstname,Lastname,Age,Email,Password")] User user)
         {
+            using (MyDataContext db = new MyDataContext())
+            {
+             var usr = db.User.Where(u => u.Id == user.Id).FirstOrDefault();
             if (ModelState.IsValid)
             {
+                var userId = (int)Session["Id"];
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
+                    
+                }
+                
             }
             return View(user);
+            
+           
         }
 
-        // GET: Users/Delete/5
+        // GET: UsersManage/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -105,7 +113,7 @@ namespace DatingApp.Controllers
             return View(user);
         }
 
-        // POST: Users/Delete/5
+        // POST: UsersManage/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -123,55 +131,6 @@ namespace DatingApp.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        public ActionResult Login()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Login(User user)
-        {
-            using (MyDataContext db = new MyDataContext())
-            {
-              var usr = db.User.Where(u => u.Email == user.Email && u.Password == user.Password).FirstOrDefault();
-              if(usr != null)
-                {
-                    Session["Id"] = usr.Id.ToString();
-                    Session["Email"] = usr.Email.ToString();
-                    Session["Firstname"] = usr.Firstname.ToString();
-                    Session["Lastname"] = usr.Lastname.ToString();
-                    Session["Age"] = usr.Age.ToString();
-                    return RedirectToAction("Loggedin");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Email or Password is invalid");
-                }
-            }
-            return View();
-        }
-
-        public ActionResult LoggedIn()
-        {
-            if(Session["Id"] != null)
-            {
-                return View();
-            }
-            else
-            {
-                return RedirectToAction("index", "Home");
-            }
-        }
-
-        public ActionResult LogOut()
-        {
-
-            Session.Clear();
-
-            return RedirectToAction("index", "Home");
-
         }
     }
 }
