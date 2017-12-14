@@ -20,12 +20,10 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Min Profil", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Meddelande", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Vänner", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
-                    <li> <input class="input-sm" id="search" type="text" placeholder="Search.."> 
-                      <button class="btn btn-info">Search</button></li>
+                    <li>@Html.ActionLink(DatingApp.Resources.HomeText.Home, "Index", "Home")</li>
+                    <li>@Html.ActionLink(DatingApp.Resources.HomeText.About, "About", "Home")</li>
+                    <li>@Html.ActionLink(DatingApp.Resources.HomeText.Contact, "Contact", "Home")</li>
+                    <li>@Html.ActionLink(DatingApp.Resources.HomeText.Language, "Index", "Language")</li>
                 </ul>
             </div>
         </div>
