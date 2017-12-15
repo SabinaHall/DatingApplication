@@ -1,4 +1,4 @@
-﻿@model DatingApp.Models.User
+﻿@model IEnumerable<DatingApp.Models.User>
 
 @{
     ViewBag.Title = "LoggedIn";
@@ -24,7 +24,7 @@
 
         <div class="col-md-4">
             <h4 class="breadcrumb">Information om användare</h4>
-            <p><i class="glyphicon glyphicon-sunglasses"></i>Förnamn: @Session["Firstname"].ToString()</p>
+            <p><i class="glyphicon glyphicon-search"></i>Förnamn: @Session["Firstname"].ToString()</p>
             <p>Efternamn: @Session["Lastname"].ToString()</p>
             <p>Ålder: @Session["Age"].ToString()</p>
 
@@ -40,6 +40,8 @@
             <p><a href="~/Users/LoggedIn" class="btn btn-info">Klicka här &raquo;</a></p>
         </div>
 }
+
+<br />
 
 
 <div class="clearfix">

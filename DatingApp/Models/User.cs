@@ -35,5 +35,7 @@ namespace DatingApp.Models
         [Display(Name = "Lösenord")]
         [StringLength(30, MinimumLength = 6, ErrorMessage = "Invalid")]
         public string Password { get; set; }
+
+        public virtual ICollection<Post> Posts { get; set; }
     }
 }
