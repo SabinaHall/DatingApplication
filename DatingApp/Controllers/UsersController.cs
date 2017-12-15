@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using DatingApp.Models;
 
 
@@ -167,8 +168,14 @@ namespace DatingApp.Controllers
 
         public ActionResult LogOut()
         {
-            Session.Clear();
-
+            Session.Remove("id");
+            Session.Remove("Email");
+            Session.Remove("Firstname");
+            Session.Remove("Lastname");
+            Session.Remove("Age");
+            Session.Abandon();
+            Session.RemoveAll();
+            FormsAuthentication.SignOut();
             return RedirectToAction("index", "Home");
         }
     }
