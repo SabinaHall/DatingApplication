@@ -14,17 +14,17 @@
     <br />
     <div class="col-md-4">
         <h4 class="breadcrumb">Profilbild</h4>
-        <p>Bild... Här...</p>
+        <img height="200" width="200" src="~/Content/avatar.png" />
 
         <br />
 
-        <h4>Vill du ladda upp en ny profilbild?</h4>
+        <h4>Vill du ladda upp en ny profilbild? <i class="glyphicon glyphicon-upload"></i></h4>
         <p><a href="~/Users/LoggedIn" class="btn btn-info">Klicka här &raquo;</a></p>
     </div>
 
         <div class="col-md-4">
             <h4 class="breadcrumb">Information om användare</h4>
-            <p>Förnamn: @Session["Firstname"].ToString()</p>
+            <p><i class="glyphicon glyphicon-sunglasses"></i>Förnamn: @Session["Firstname"].ToString()</p>
             <p>Efternamn: @Session["Lastname"].ToString()</p>
             <p>Ålder: @Session["Age"].ToString()</p>
 
@@ -35,7 +35,7 @@
         </div>
 
         <div class="col-md-4">
-            <h4 class="breadcrumb">Vill du se din vänlista?</h4>
+            <h4 class="breadcrumb">Vill du se din vänlista? <i class="glyphicon glyphicon-list"></i></h4>
 
             <p><a href="~/Users/LoggedIn" class="btn btn-info">Klicka här &raquo;</a></p>
         </div>

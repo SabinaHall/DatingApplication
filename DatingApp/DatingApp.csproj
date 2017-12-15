@@ -171,6 +171,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\avatar.png" />
     <Content Include="Content\bild1.jpg" />
     <Content Include="Content\bild2.jpg" />
     <Content Include="Content\bild3.jpg" />
