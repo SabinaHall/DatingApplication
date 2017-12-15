@@ -135,6 +135,9 @@
   <data name="Login" xml:space="preserve">
     <value>Logga in</value>
   </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Logga ut</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>Lösenord</value>
   </data>

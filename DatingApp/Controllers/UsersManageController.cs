@@ -7,15 +7,17 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DatingApp.Models;
+using System.Web.DynamicData;
 
 namespace DatingApp.Controllers
 {
     public class UsersManageController : Controller
     {
         private MyDataContext db = new MyDataContext();
+ 
 
-        // GET: UsersManage
-        public ActionResult Index()
+// GET: UsersManage
+public ActionResult Index()
         {
             return View(db.User.ToList());
         }
@@ -58,19 +60,40 @@ namespace DatingApp.Controllers
             return View(user);
         }
 
-        // GET: UsersManage/Edit/5
+        ////GET: UsersManage/Edit/5
+        //public ActionResult Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    User user = db.User.Find(id);
+        //    if (user == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(user);
+        //}
+
+
+        //GET: UsersManage/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            using (var db = new MyDataContext())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User user = db.User.Find(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
+                var usr = db.User.Where(u => u.Id == id).FirstOrDefault();
+                if (id == null)
+                {
+                    
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                User user = db.User.Find(id);
+                if (user == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(user);
+            }      
         }
 
         // POST: UsersManage/Edit/5
@@ -80,22 +103,23 @@ namespace DatingApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Firstname,Lastname,Age,Email,Password")] User user)
         {
-            using (MyDataContext db = new MyDataContext())
-            {
-             var usr = db.User.Where(u => u.Id == user.Id).FirstOrDefault();
+                
             if (ModelState.IsValid)
             {
-                var userId = (int)Session["Id"];
-                db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-                    
+                using (var db = new MyDataContext())
+                {
+
+                    var Edituser = db.User.SingleOrDefault(u => u.Id == user.Id);
+                    UpdateModel(Edituser);
+                    db.SaveChanges();
+
+                    return RedirectToAction("LoggedIn", "Users");
+
                 }
-                
             }
+
+
             return View(user);
-            
-           
         }
 
         // GET: UsersManage/Delete/5

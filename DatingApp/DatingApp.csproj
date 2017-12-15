@@ -229,8 +229,8 @@
     <Content Include="Views\UsersManage\Create.cshtml" />
     <Content Include="Views\UsersManage\Delete.cshtml" />
     <Content Include="Views\UsersManage\Details.cshtml" />
-    <Content Include="Views\UsersManage\Edit.cshtml" />
     <Content Include="Views\UsersManage\Index.cshtml" />
+    <Content Include="Views\UsersManage\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
