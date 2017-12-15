@@ -134,8 +134,8 @@ namespace DatingApp.Controllers
         {
             using (MyDataContext db = new MyDataContext())
             {
-              var usr = db.User.Where(u => u.Email == user.Email && u.Password == user.Password).FirstOrDefault();
-              if(usr != null)
+                var usr = db.User.Where(u => u.Email == user.Email && u.Password == user.Password).FirstOrDefault();
+                if (usr != null)
                 {
                     Session["Id"] = usr.Id.ToString();
                     Session["Email"] = usr.Email.ToString();
@@ -154,7 +154,7 @@ namespace DatingApp.Controllers
 
         public ActionResult LoggedIn()
         {
-            if(Session["Id"] != null)
+            if (Session["Id"] != null)
             {
                 return View();
             }
@@ -166,11 +166,9 @@ namespace DatingApp.Controllers
 
         public ActionResult LogOut()
         {
-
             Session.Clear();
 
             return RedirectToAction("index", "Home");
-
         }
     }
 }
