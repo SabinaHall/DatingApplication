@@ -36,6 +36,6 @@ namespace DatingApp.Models
         [StringLength(30, MinimumLength = 6, ErrorMessage = "Invalid")]
         public string Password { get; set; }
 
-        public byte[] Image { get; set; }
+        public virtual ICollection<Post> Posts { get; set; }
     }
 }

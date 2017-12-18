@@ -70,6 +70,7 @@ namespace DatingApp.Controllers
             User user = db.User.Find(id);
             if (user == null)
             {
+                db.SaveChanges();
                 return HttpNotFound();
             }
             return View(user);
@@ -86,7 +87,7 @@ namespace DatingApp.Controllers
             {
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Loggedin", "Users");
             }
             return View(user);
         }
@@ -140,10 +141,6 @@ namespace DatingApp.Controllers
                 if (usr != null)
                 {
                     Session["Id"] = usr.Id.ToString();
-                    Session["Email"] = usr.Email.ToString();
-                    Session["Firstname"] = usr.Firstname.ToString();
-                    Session["Lastname"] = usr.Lastname.ToString();
-                    Session["Age"] = usr.Age.ToString();
                     return RedirectToAction("Loggedin");
                 }
                 else
@@ -158,7 +155,10 @@ namespace DatingApp.Controllers
         {
             if (Session["Id"] != null)
             {
-                return View();
+                MyDataContext db = new MyDataContext();
+                int id = int.Parse(Session["id"].ToString());
+                var user = db.User.First(x => x.Id == id);
+                return View(user);
             }
             else
             {
@@ -168,11 +168,6 @@ namespace DatingApp.Controllers
 
         public ActionResult LogOut()
         {
-            Session.Remove("id");
-            Session.Remove("Email");
-            Session.Remove("Firstname");
-            Session.Remove("Lastname");
-            Session.Remove("Age");
             Session.Abandon();
             Session.RemoveAll();
             FormsAuthentication.SignOut();
