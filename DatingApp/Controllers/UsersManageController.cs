@@ -8,19 +8,24 @@ using System.Web;
 using System.Web.Mvc;
 using DatingApp.Models;
 using System.Web.DynamicData;
+using System.IO;
+using Microsoft.AspNet.Identity;
+using System.Web.Hosting;
 
 namespace DatingApp.Controllers
 {
     public class UsersManageController : Controller
     {
         private MyDataContext db = new MyDataContext();
- 
 
-// GET: UsersManage
-public ActionResult Index()
+
+        // GET: UsersManage
+        public ActionResult Index()
         {
             return View(db.User.ToList());
         }
+
+
 
         // GET: UsersManage/Details/5
         public ActionResult Details(int? id)
@@ -84,7 +89,7 @@ public ActionResult Index()
                 var usr = db.User.Where(u => u.Id == id).FirstOrDefault();
                 if (id == null)
                 {
-                    
+
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
                 User user = db.User.Find(id);
@@ -93,7 +98,7 @@ public ActionResult Index()
                     return HttpNotFound();
                 }
                 return View(user);
-            }      
+            }
         }
 
         // POST: UsersManage/Edit/5
@@ -103,7 +108,7 @@ public ActionResult Index()
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Firstname,Lastname,Age,Email,Password")] User user)
         {
-                
+
             if (ModelState.IsValid)
             {
                 using (var db = new MyDataContext())
@@ -156,5 +161,6 @@ public ActionResult Index()
             }
             base.Dispose(disposing);
         }
+
     }
 }
