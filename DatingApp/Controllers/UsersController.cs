@@ -61,7 +61,7 @@ namespace DatingApp.Controllers
         }
 
         // GET: Users/Edit/5
-        public ActionResult Edit(int? id) 
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -151,6 +151,7 @@ namespace DatingApp.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         public ActionResult LoggedIn()
         {
             if (Session["Id"] != null)
@@ -162,7 +163,7 @@ namespace DatingApp.Controllers
             }
             else
             {
-                return RedirectToAction("index", "Home");
+                return RedirectToAction("Index", "Home");
             }
         }
 

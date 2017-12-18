@@ -9,8 +9,7 @@ using System.Web.Mvc;
 namespace DatingApp.Models
 {
     public class User
-    {
-        
+    { 
         public int Id { get; set; }
 
         [Required]
@@ -37,5 +36,7 @@ namespace DatingApp.Models
         public string Password { get; set; }
 
         public virtual ICollection<Post> Posts { get; set; }
+
+        public virtual ICollection<User> Friends { get; set; }
     }
 }

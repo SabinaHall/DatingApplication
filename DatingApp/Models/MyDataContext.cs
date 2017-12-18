@@ -14,14 +14,16 @@ namespace DatingApp.Models
 
         }
 
-        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.Entity<Login>()
-        //        .HasRequired(x => x.UserProfile)
-        //        .WithMany()
-        //        .WillCascadeOnDelete(false);
-        //    base.OnModelCreating(modelBuilder);
-        //}
+        //För entiten bok, som måste ha en genre och genre i sin tur har många böcker, 
+        //när du tar bort en genre ta inte bort böckerna.
+        //Går att göra detta med Data Annotations. 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.Friends)
+                .WithMany();
+            base.OnModelCreating(modelBuilder);
+        }
 
         public DbSet<User> User { get; set; }
         public DbSet<Post> Posts { get; set; }

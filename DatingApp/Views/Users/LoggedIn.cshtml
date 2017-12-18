@@ -8,46 +8,95 @@
 @if (Session["Id"] != null)
 {
     <br />
-
     <h4>Välkommen @Model.Email, du är nu inloggad!</h4>
+
+    <br />
+    <div class="col-md-4">
+        <h4 class="breadcrumb">Profilbild <i class="glyphicon glyphicon-user"></i></h4>
+        <img height="200" width="200" src="~/Content/avatar.png" />
+
+        <br />
+
+        <h4>Vill du ladda upp en ny profilbild? </h4>
+        <p><a href="~/Users/LoggedIn" class="btn btn-info"><i class="glyphicon glyphicon-upload"></i></a></p>
+    </div>
+
+    <div class="col-md-4">
+        <h4 class="breadcrumb">Information om användare <i class="glyphicon glyphicon-info-sign"></i></h4>
+        <p>Förnamn: @Model.Firstname</p>
+        <p>Efternamn: @Model.Lastname </p>
+        <p>Ålder: @Model.Age</p>
+
+        <br />
+
+        <h4>Vill du ändra din information?</h4>
+        <p><a href="~/Users/Edit/@Model.Id" class="btn btn-info">Klicka här &raquo;</a></p>
+    </div>
+
+    <div class="col-md-4">
+        <h4 class="breadcrumb">Vill du se din vänlista? <i class="glyphicon glyphicon-list"></i></h4>
+
+        <p>Alla användarens vänner i en tabell.</p>
+    </div>
+
+    <div class="col-md-4">
+        <h4 class="breadcrumb">Vill du skriva ett nytt inlägg?<i class="glyphicon glyphicon-pencil"></i></h4>
+
+        <p><a href="~/Posts/Create" class="btn btn-info">Klicka här &raquo;</a></p>
+
+        <br />
+
+        <h4 class="breadcrumb">Alla dina inlägg:</h4>
+        <table class="table table-striped">
+            <tr>
+                <th>Skickat från:</th>
+                <th>Meddelande:</th>
+            </tr>
+            @foreach (var item in Model.Posts)
+                {
+                <tr>
+                    <td>@item.Sender.Firstname</td>
+                    <td>@item.Message</td>
+                </tr>
+            }
+        </table>
+
+    </div>
+}
+
+    @*@{
+        int Id = int.Parse(Session["Id"].ToString());
+            }*@
+
+else
+{
+    <p><a href="~/Users/LoggedIn" class="btn btn-info">Lägg till vän &raquo;</a></p>
 
     <br />
     <div class="col-md-4">
         <h4 class="breadcrumb">Profilbild</h4>
         <img height="200" width="200" src="~/Content/avatar.png" />
-
+    </div>
+    <br />
+    <div class="col-md-4">
+        <h4 class="breadcrumb">Information om användare</h4>
+        <p><i class="glyphicon glyphicon-search"></i>Förnamn: @Model.Firstname</p>
+        <p>Efternamn: @Model.Lastname </p>
+        <p>Ålder: @Model.Age</p>
         <br />
-
-        <h4>Vill du ladda upp en ny profilbild? <i class="glyphicon glyphicon-upload"></i></h4>
-        <p><a href="~/Users/LoggedIn" class="btn btn-info">Klicka här &raquo;</a></p>
     </div>
 
-        <div class="col-md-4">
-            <h4 class="breadcrumb">Information om användare</h4>
-            <p><i class="glyphicon glyphicon-search"></i>Förnamn: @Model.Firstname</p>
-            <p>Efternamn: @Model.Lastname </p>
-            <p>Ålder: @Model.Age</p>
-
-            <br />
-
-            <h4>Vill du ändra din information?</h4>
-            <p><a href="~/Users/Edit/@Model.Id" class="btn btn-info">Klicka här &raquo;</a></p>
-        </div>
-
-        <div class="col-md-4">
-            <h4 class="breadcrumb">Vill du se din vänlista? <i class="glyphicon glyphicon-list"></i></h4>
-
-            <p><a href="~/Users/LoggedIn" class="btn btn-info">Klicka här &raquo;</a></p>
-        </div>
-
-        <div class="col-md-4">
-            <h4 class="breadcrumb">Vill du skriva ett nytt inlägg?<i class="glyphicon glyphicon-pencil"></i></h4>
-
-            <p><a href="~/Posts/Create" class="btn btn-info">Klicka här &raquo;</a></p>
-        </div>
+        <br />
+        <h4 class="breadcrumb">@Model.Firstname inlägg:</h4>
+        <table class="table table-striped">
+            @foreach (var item in Model.Posts)
+             {
+                <tr>
+                    <td>@item.Message</td>
+                </tr>
+             }
+        </table>
 }
-
-<br />
 
 
 <div class="clearfix">

@@ -9,10 +9,11 @@ namespace DatingApp.Controllers
 {
     public class HomeController : Controller
     {
+        MyDataContext db = new MyDataContext();
 
         public ActionResult Index()
         {
-            return View();
+            return View(db.User.ToList());
         }
 
         public ActionResult About()
