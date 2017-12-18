@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using DatingApp.Models;
-
+using Microsoft.AspNet.Identity;
 
 namespace DatingApp.Controllers
 {
@@ -159,7 +159,7 @@ namespace DatingApp.Controllers
                 using (MyDataContext db = new MyDataContext())
                 {
 
-                    int id = Id??int.Parse(Session["id"].ToString());
+                    int id = Id ?? int.Parse(Session["id"].ToString());
                     var user = db.User.Include(i => i.Posts).First(x => x.Id == id);
                     return View(user);
                 }
@@ -185,6 +185,24 @@ namespace DatingApp.Controllers
 
             return View();
         }
+
+        //[HttpPost]
+        //public ActionResult AddFriend(int? id, Friend friend)
+        //{
+        //    using (MyDataContext db = new MyDataContext())
+        //    {
+        //        User from = (User)Session["Id"];
+        //        User to = (User)User.Identity.GetUserId();
+
+        //        friend.From = from;
+        //        friend.To = to;
+
+        //        db.Friends.
+        //        db.SaveChanges();
+
+        //        return View();
+        //    }
+        //}
 
     }
 }
