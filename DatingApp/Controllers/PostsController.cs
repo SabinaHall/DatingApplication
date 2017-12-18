@@ -50,7 +50,13 @@ namespace DatingApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Posts.Add(post);
+                MyDataContext db = new MyDataContext();
+                int id = int.Parse(Session["id"].ToString());
+                var user = db.User.First(x => x.Id == id);
+                post.Sender = user;
+
+                user.Posts.Add(post);
+                //db.Posts.Add(post);
                 db.SaveChanges();
                 return RedirectToAction("Create", "Posts");
             }

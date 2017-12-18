@@ -70,6 +70,7 @@ namespace DatingApp.Controllers
             User user = db.User.Find(id);
             if (user == null)
             {
+                db.SaveChanges();
                 return HttpNotFound();
             }
             return View(user);
@@ -86,7 +87,7 @@ namespace DatingApp.Controllers
             {
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Loggedin", "Users");
             }
             return View(user);
         }
@@ -158,7 +159,10 @@ namespace DatingApp.Controllers
         {
             if (Session["Id"] != null)
             {
-                return View();
+                MyDataContext db = new MyDataContext();
+                int id = int.Parse(Session["id"].ToString());
+                var user = db.User.First(x => x.Id == id);
+                return View(user);
             }
             else
             {

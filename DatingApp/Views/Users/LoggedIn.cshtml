@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DatingApp.Models.User>
+﻿@model DatingApp.Models.User
 
 @{
     ViewBag.Title = "LoggedIn";
@@ -9,7 +9,7 @@
 {
     <br />
 
-    <h4>Välkommen @Session["Email"].ToString(), du är nu inloggad!</h4>
+    <h4>Välkommen @Model.Email, du är nu inloggad!</h4>
 
     <br />
     <div class="col-md-4">
@@ -24,14 +24,14 @@
 
         <div class="col-md-4">
             <h4 class="breadcrumb">Information om användare</h4>
-            <p><i class="glyphicon glyphicon-search"></i>Förnamn: @Session["Firstname"].ToString()</p>
-            <p>Efternamn: @Session["Lastname"].ToString()</p>
-            <p>Ålder: @Session["Age"].ToString()</p>
+            <p><i class="glyphicon glyphicon-search"></i>Förnamn: @Model.Firstname</p>
+            <p>Efternamn: @Model.Lastname </p>
+            <p>Ålder: @Model.Age</p>
 
             <br />
 
             <h4>Vill du ändra din information?</h4>
-            <p><a href="~/Users/Edit/@Session["id"]" class="btn btn-info">Klicka här &raquo;</a></p>
+            <p><a href="~/Users/Edit/@Model.Id" class="btn btn-info">Klicka här &raquo;</a></p>
         </div>
 
         <div class="col-md-4">
