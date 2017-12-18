@@ -151,14 +151,18 @@ namespace DatingApp.Controllers
             return View();
         }
 
+
         public ActionResult LoggedIn()
         {
             if (Session["Id"] != null)
             {
-                MyDataContext db = new MyDataContext();
-                int id = int.Parse(Session["id"].ToString());
-                var user = db.User.First(x => x.Id == id);
-                return View(user);
+                using (MyDataContext db = new MyDataContext())
+                {
+
+                    int id = int.Parse(Session["id"].ToString());
+                    var user = db.User.First(x => x.Id == id);
+                    return View(user);
+                }
             }
             else
             {
@@ -173,5 +177,14 @@ namespace DatingApp.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("index", "Home");
         }
+
+        public ActionResult Search()
+        {
+
+           
+
+            return View();
+        }
+
     }
 }
