@@ -141,10 +141,6 @@ namespace DatingApp.Controllers
                 if (usr != null)
                 {
                     Session["Id"] = usr.Id.ToString();
-                    Session["Email"] = usr.Email.ToString();
-                    Session["Firstname"] = usr.Firstname.ToString();
-                    Session["Lastname"] = usr.Lastname.ToString();
-                    Session["Age"] = usr.Age.ToString();
                     return RedirectToAction("Loggedin");
                 }
                 else
