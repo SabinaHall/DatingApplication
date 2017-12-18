@@ -5,71 +5,112 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 @if (Session["Id"] != null)
 {
-    <br />
-    <h4>Välkommen @Model.Email, du är nu inloggad!</h4>
+    int IdSession = int.Parse(Session["Id"].ToString());
 
-    <br />
-    <div class="col-md-4">
-        <h4 class="breadcrumb">Profilbild <i class="glyphicon glyphicon-user"></i></h4>
-        <img height="200" width="200" src="~/Content/avatar.png" />
+
+    if (Session["Id"] != null && Model.Id == IdSession)
+    {
+        <br />
+        <h4>Välkommen @Model.Email, du är nu inloggad!</h4>
 
         <br />
+        <div class="col-md-4">
+            <h4 class="breadcrumb">Profilbild <i class="glyphicon glyphicon-user"></i></h4>
+            <img height="200" width="200" src="~/Content/avatar.png" />
 
-        <h4>Vill du ladda upp en ny profilbild? </h4>
-        <p><a href="~/Users/LoggedIn" class="btn btn-info"><i class="glyphicon glyphicon-upload"></i></a></p>
-    </div>
+            <br />
 
-    <div class="col-md-4">
-        <h4 class="breadcrumb">Information om användare <i class="glyphicon glyphicon-info-sign"></i></h4>
-        <p>Förnamn: @Model.Firstname</p>
-        <p>Efternamn: @Model.Lastname </p>
-        <p>Ålder: @Model.Age</p>
+            <h4>Vill du ladda upp en ny profilbild? </h4>
+            <p><a href="~/Users/LoggedIn" class="btn btn-info"><i class="glyphicon glyphicon-upload"></i></a></p>
+        </div>
 
-        <br />
+        <div class="col-md-4">
+            <h4 class="breadcrumb">Information om användare <i class="glyphicon glyphicon-info-sign"></i></h4>
+            <p>Förnamn: @Model.Firstname</p>
+            <p>Efternamn: @Model.Lastname </p>
+            <p>Ålder: @Model.Age</p>
 
-        <h4>Vill du ändra din information?</h4>
-        <p><a href="~/Users/Edit/@Model.Id" class="btn btn-info">Klicka här &raquo;</a></p>
-    </div>
+            <br />
 
-    <div class="col-md-4">
-        <h4 class="breadcrumb">Vill du se din vänlista? <i class="glyphicon glyphicon-list"></i></h4>
+            <h4>Vill du ändra din information?</h4>
+            <p><a href="~/Users/Edit/@Model.Id" class="btn btn-info">Klicka här &raquo;</a></p>
+        </div>
 
-        <p>Alla användarens vänner i en tabell.</p>
-    </div>
+        <div class="col-md-4">
+            <h4 class="breadcrumb">Vill du se din vänlista? <i class="glyphicon glyphicon-list"></i></h4>
 
-    <div class="col-md-4">
-        <h4 class="breadcrumb">Vill du skriva ett nytt inlägg?<i class="glyphicon glyphicon-pencil"></i></h4>
+            <p>Alla användarens vänner i en tabell.</p>
+        </div>
 
-        <p><a href="~/Posts/Create" class="btn btn-info">Klicka här &raquo;</a></p>
+        <div class="col-md-4">
+            <h4 class="breadcrumb">Vill du skriva ett nytt inlägg?<i class="glyphicon glyphicon-pencil"></i></h4>
 
-        <br />
+            <p><a href="~/Posts/Create" class="btn btn-info">Klicka här &raquo;</a></p>
 
-        <h4 class="breadcrumb">Alla dina inlägg:</h4>
-        <table class="table table-striped">
-            <tr>
-                <th>Skickat från:</th>
-                <th>Meddelande:</th>
-            </tr>
-            @foreach (var item in Model.Posts)
-                {
+            <br />
+
+            <h4 class="breadcrumb">Alla dina inlägg:</h4>
+            <table class="table table-striped">
                 <tr>
-                    <td>@item.Sender.Firstname</td>
-                    <td>@item.Message</td>
+                    <th>Skickat från:</th>
+                    <th>Meddelande:</th>
                 </tr>
-            }
-        </table>
+                @foreach (var item in Model.Posts)
+                {
+                    <tr>
+                        <td>@item.Sender.Firstname</td>
+                        <td>@item.Message</td>
+                    </tr>
+                }
+            </table>
+        </div>
+    }
 
-    </div>
+    if (Session["Id"] != null && Model.Id != IdSession)
+    {
+        <br />
+        <p><a href="~/Users/LoggedIn" class="btn btn-info">Lägg till vän &raquo;</a></p>
+
+        <br />
+        <div class="col-md-4">
+            <h4 class="breadcrumb">Profilbild</h4>
+            <img height="200" width="200" src="~/Content/avatar.png" />
+        </div>
+        <br />
+        <div class="col-md-4">
+            <h4 class="breadcrumb">Information om användare</h4>
+            <p><i class="glyphicon glyphicon-search"></i>Förnamn: @Model.Firstname</p>
+            <p>Efternamn: @Model.Lastname </p>
+            <p>Ålder: @Model.Age</p>
+            <br />
+        </div>
+
+        <br />
+        <div class="col-md-4">
+            <h4 class="breadcrumb">@Model.Firstname inlägg:</h4>
+            <table class="table table-striped">
+                <tr>
+                    <th>Skickat från:</th>
+                    <th>Meddelande:</th>
+                </tr>
+                @foreach (var item in Model.Posts)
+                {
+                    <tr>
+                        <td>@item.Sender.Firstname</td>
+                        <td>@item.Message</td>
+                    </tr>
+                }
+            </table>
+        </div>
+    }
 }
-
-    @*@{
-        int Id = int.Parse(Session["Id"].ToString());
-            }*@
 
 else
 {
+    <br />
     <p><a href="~/Users/LoggedIn" class="btn btn-info">Lägg till vän &raquo;</a></p>
 
     <br />
@@ -86,16 +127,23 @@ else
         <br />
     </div>
 
-        <br />
+    <br />
+    <div class="col-md-4">
         <h4 class="breadcrumb">@Model.Firstname inlägg:</h4>
         <table class="table table-striped">
+            <tr>
+                <th>Skickat från:</th>
+                <th>Meddelande:</th>
+            </tr>
             @foreach (var item in Model.Posts)
-             {
+            {
                 <tr>
+                    <td>@item.Sender.Firstname</td>
                     <td>@item.Message</td>
                 </tr>
-             }
+            }
         </table>
+    </div>
 }
 
 

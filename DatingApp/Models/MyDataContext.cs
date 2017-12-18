@@ -27,5 +27,7 @@ namespace DatingApp.Models
 
         public DbSet<User> User { get; set; }
         public DbSet<Post> Posts { get; set; }
+
+        //public DbSet<User> Friends { get; set; }
     }
 }
