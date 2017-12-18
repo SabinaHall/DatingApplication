@@ -58,7 +58,7 @@ namespace DatingApp.Controllers
                 user.Posts.Add(post);
                 //db.Posts.Add(post);
                 db.SaveChanges();
-                return RedirectToAction("Create", "Posts");
+                return RedirectToAction("LoggedIn", "Users");
             }
 
             return View();
