@@ -168,11 +168,6 @@ namespace DatingApp.Controllers
 
         public ActionResult LogOut()
         {
-            Session.Remove("id");
-            Session.Remove("Email");
-            Session.Remove("Firstname");
-            Session.Remove("Lastname");
-            Session.Remove("Age");
             Session.Abandon();
             Session.RemoveAll();
             FormsAuthentication.SignOut();
