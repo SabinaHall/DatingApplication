@@ -238,11 +238,6 @@
     <Content Include="Views\Users\Login.cshtml" />
     <Content Include="Views\Users\LoggedIn.cshtml" />
     <Content Include="Views\Users\Edit.cshtml" />
-    <Content Include="Views\UsersManage\Create.cshtml" />
-    <Content Include="Views\UsersManage\Delete.cshtml" />
-    <Content Include="Views\UsersManage\Details.cshtml" />
-    <Content Include="Views\UsersManage\Index.cshtml" />
-    <Content Include="Views\UsersManage\Edit.cshtml" />
     <Content Include="Views\Posts\Create.cshtml" />
     <Content Include="Views\Posts\Index.cshtml" />
   </ItemGroup>
