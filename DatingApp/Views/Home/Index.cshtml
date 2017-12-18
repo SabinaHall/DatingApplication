@@ -24,7 +24,7 @@
     @foreach (var item in Model)
     {
         <div class="col-md-4">
-            <a href="~/Views/Users/LoggedIn/@item.Id"><h2>@Html.DisplayFor(modelItem => item.Firstname)</h2></a>
+            <a href="~/Users/LoggedIn/@item.Id"><h2>@Html.DisplayFor(modelItem => item.Firstname)</h2></a>
             <p>Här ska vi lägga bild sen när vi vet hur man lagrar det.</p>
         </div>
     }

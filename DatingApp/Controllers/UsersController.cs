@@ -152,15 +152,15 @@ namespace DatingApp.Controllers
         }
 
 
-        public ActionResult LoggedIn()
+        public ActionResult LoggedIn(int? Id)
         {
-            if (Session["Id"] != null)
+            if (Session["Id"] != null || Id != null)
             {
                 using (MyDataContext db = new MyDataContext())
                 {
 
-                    int id = int.Parse(Session["id"].ToString());
-                    var user = db.User.First(x => x.Id == id);
+                    int id = Id??int.Parse(Session["id"].ToString());
+                    var user = db.User.Include(i => i.Posts).First(x => x.Id == id);
                     return View(user);
                 }
             }
