@@ -37,7 +37,6 @@ namespace DatingApp.Models
 
 
         public virtual ICollection<Post> Posts { get; set; }
-
         public virtual ICollection<Friend> Friends { get; set; }
     }
 }

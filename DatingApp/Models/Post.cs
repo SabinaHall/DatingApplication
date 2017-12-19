@@ -12,9 +12,7 @@ namespace DatingApp.Models
 
         [StringLength(500, MinimumLength = 3)]
         public string Message { get; set; }
-
         public virtual User Sender { get; set; }
-    
-        //public virtual User Receiver { get; set; }
+        public virtual User Receiver { get; set; }
     }
 }

@@ -32,27 +32,60 @@
             <p>Förnamn: @Model.Firstname</p>
             <p>Efternamn: @Model.Lastname </p>
             <p>Ålder: @Model.Age</p>
-
             <br />
-
             <h4>Vill du ändra din information?</h4>
             <p><a href="~/Users/Edit/@Model.Id" class="btn btn-info">Klicka här &raquo;</a></p>
+            <br />
+
+            <h4 class="breadcrumb">Vänner</h4>
+            <table class="table table-striped">
+                <tr>
+                    <th>Namn:</th>
+                </tr>
+                @foreach (var item in Model.Friends)
+                    {
+                    <tr>
+                        <td>@item.To.Firstname</td>
+                    </tr>
+                }
+            </table>
+
+            <br />
         </div>
 
-        <div class="col-md-4">
-            <h4 class="breadcrumb">Vill du se din vänlista? <i class="glyphicon glyphicon-list"></i></h4>
+        @*<div class="col-md-4">
+            <h4 class="breadcrumb">Vänner <i class="glyphicon glyphicon-list"></i></h4>
 
-            <p>Alla användarens vänner i en tabell.</p>
-        </div>
+            <table class="table table-striped">
+                <tr>
+                    <th>Namn:</th>
+                </tr>
+                @foreach (var item in Model.Friends)
+                    {
+                    <tr>
+                        <td>@item.To.Firstname</td>
+                    </tr>
+                }
+            </table>
+
+        </div>*@
 
         <div class="col-md-4">
             <h4 class="breadcrumb">Vill du skriva ett nytt inlägg?<i class="glyphicon glyphicon-pencil"></i></h4>
 
-            <p><a href="~/Posts/Create" class="btn btn-info">Klicka här &raquo;</a></p>
+
+            @using (Html.BeginForm("Create", "Posts", new { id = Model.Id }, FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <textarea name="Message" id="Message" class="form-control" cols="20" rows="2"></textarea>
+                <br />
+                <input type="submit" value="Skicka &raquo;" class="btn btn-default" />
+            }
 
             <br />
 
             <h4 class="breadcrumb">Alla dina inlägg:</h4>
+
             <table class="table table-striped">
                 <tr>
                     <th>Skickat från:</th>
@@ -71,30 +104,63 @@
 
     if (Session["Id"] != null && Model.Id != IdSession)
     {
-        <br />
-        <p><a href="~/Users/LoggedIn" class="btn btn-info">Lägg till vän &raquo;</a></p>
+        using (Html.BeginForm("AddFriend", "Users", new { id = Model.Id }, FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <br />
+            <input type="submit" value="Lägg till vän" class="btn btn-info" />
+        }
+
+        @*@Html.ActionLink("Lägg till vän", "AddFriend", new { id = Model.Id })*@
 
         <br />
         <div class="col-md-4">
             <h4 class="breadcrumb">Profilbild</h4>
             <img height="200" width="200" src="~/Content/avatar.png" />
         </div>
-        
+
         <div class="col-md-4">
             <h4 class="breadcrumb">Information om användare</h4>
             <p><i class="glyphicon glyphicon-search"></i>Förnamn: @Model.Firstname</p>
             <p>Efternamn: @Model.Lastname </p>
             <p>Ålder: @Model.Age</p>
+            <br />
+            
+            <h4 class="breadcrumb">Vänner</h4>
+            <table class="table table-striped">
+                <tr>
+                    <th>Namn:</th>
+                </tr>
+                @foreach (var item in Model.Friends)
+                    {
+                    <tr>
+                        <td>@item.To.Firstname</td>
+                    </tr>
+                }
+            </table>
         </div>
 
-        
+
         <div class="col-md-4">
+            <h4 class="breadcrumb">Vill du skriva ett nytt inlägg?<i class="glyphicon glyphicon-pencil"></i></h4>
+
+            @using (Html.BeginForm("Create", "Posts", new { id = Model.Id }, FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <textarea name="Message" id="Message" class="form-control" cols="20" rows="2"></textarea>
+                <br />
+                <input type="submit" value="Skicka &raquo;" class="btn btn-default" />
+            }
+            <br />
+
             <h4 class="breadcrumb">@Model.Firstname inlägg:</h4>
             <table class="table table-striped">
                 <tr>
                     <th>Skickat från:</th>
                     <th>Meddelande:</th>
                 </tr>
+
                 @foreach (var item in Model.Posts)
                 {
                     <tr>
@@ -109,9 +175,6 @@
 
 else
 {
-    <br />
-    <p><a href="~/Users/LoggedIn" class="btn btn-info">Lägg till vän &raquo;</a></p>
-
     <br />
     <div class="col-md-4">
         <h4 class="breadcrumb">Profilbild</h4>

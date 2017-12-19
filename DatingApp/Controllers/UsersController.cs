@@ -61,7 +61,7 @@ namespace DatingApp.Controllers
         }
 
         // GET: Users/Edit/5
-        public ActionResult Edit(int? id) 
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -158,9 +158,8 @@ namespace DatingApp.Controllers
             {
                 using (MyDataContext db = new MyDataContext())
                 {
-
                     int id = Id ?? int.Parse(Session["id"].ToString());
-                    var user = db.User.Include(i => i.Posts).First(x => x.Id == id);
+                    var user = db.User.Include(i => i.Posts.Select(x => x.Sender)).Include(y => y.Friends.Select(x => x.To)).First(x => x.Id == id);
                     return View(user);
                 }
             }
@@ -181,28 +180,36 @@ namespace DatingApp.Controllers
         public ActionResult Search()
         {
 
-           
+
 
             return View();
         }
 
-        //[HttpPost]
-        //public ActionResult AddFriend(int? id, Friend friend)
-        //{
-        //    using (MyDataContext db = new MyDataContext())
-        //    {
-        //        User from = (User)Session["Id"];
-        //        User to = (User)User.Identity.GetUserId();
+        
+        public ActionResult AddFriend(int? id)
+        {
+            using (MyDataContext db = new MyDataContext())
+            {
+                int idSession = int.Parse(Session["Id"].ToString());
+                var user = db.User.First(x => x.Id == idSession);
 
-        //        friend.From = from;
-        //        friend.To = to;
+                if (user != null)
+                {
+                    User requestTo = db.User.Find(id);
 
-        //        db.Friends.
-        //        db.SaveChanges();
+                    Friend friend = new Friend();
+                    friend.From = user;
+                    friend.To = requestTo;
+                    user.Friends.Add(friend);
+                    db.SaveChanges();
 
-        //        return View();
-        //    }
-        //}
-
+                    return RedirectToAction("LoggedIn");
+                }
+                else
+                {
+                    return RedirectToAction("Login");
+                }
+            }
+        }
     }
 }

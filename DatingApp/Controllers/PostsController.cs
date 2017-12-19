@@ -15,8 +15,9 @@ namespace DatingApp.Controllers
         private MyDataContext db = new MyDataContext();
 
         // GET: Posts
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
+            var post = db.Posts.Include(x => x.Receiver.Id);
             return View(db.Posts.ToList());
         }
 
@@ -42,30 +43,47 @@ namespace DatingApp.Controllers
         }
 
         // POST: Posts/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PostId,Message")] Post post)
+        public ActionResult Create([Bind(Include = "PostId,Message")] Post post, int? id)
         {
             if (ModelState.IsValid)
             {
                 using (MyDataContext db = new MyDataContext())
                 {
-                    int id = int.Parse(Session["id"].ToString());
-                    var user = db.User.First(x => x.Id == id);
-                    post.Sender = user;
+                    int sessionId = int.Parse(Session["id"].ToString());
+                    var userSender = db.User.First(x => x.Id == sessionId);
 
+                    User userReciver = db.User.Find(id);
 
-                    user.Posts.Add(post);
-                    //db.Posts.Add(post);
+                    post.Sender = userSender;
+                    post.Receiver = userReciver;
+
+                    userReciver.Posts.Add(post);
                     db.SaveChanges();
                 }
                 return RedirectToAction("LoggedIn", "Users");
             }
-
             return View();
         }
+
+        //[HttpPost]
+        //public ActionResult NewMessage(int? id)
+        //{
+        //    using (MyDataContext db = new MyDataContext())
+        //    {
+        //        int sessionId = int.Parse(Session["id"].ToString());
+        //        var userSender = db.User.First(x => x.Id == sessionId);
+
+        //        User userReciver = db.User.Find(id);
+
+        //        Post post = new Post();
+        //        post
+
+        //        userReciver.Posts.Add(userSender);
+        //        post.Receiver = userReciver;
+        //    }
+        //}
 
         // GET: Posts/Edit/5
         public ActionResult Edit(int? id)
