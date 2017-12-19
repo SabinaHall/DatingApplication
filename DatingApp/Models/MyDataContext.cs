@@ -24,10 +24,11 @@ namespace DatingApp.Models
                 .WithRequired(x => x.From);
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<User>()
-               .HasMany(x => x.Posts)
-               .WithRequired(x => x.Sender);
-            base.OnModelCreating(modelBuilder);
+            //Får ej denna att fungera 
+            //modelBuilder.Entity<User>()
+            //   .HasMany(x => x.Posts)
+            //   .WithRequired(x => x.Sender);
+            //base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<User> User { get; set; }
