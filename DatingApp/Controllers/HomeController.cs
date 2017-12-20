@@ -20,7 +20,7 @@ namespace DatingApp.Controllers
         {
             ViewBag.Message = "Your application description page.";
 
-            return View();
+            return View(db.User.ToList());
         }
 
         public ActionResult Contact()

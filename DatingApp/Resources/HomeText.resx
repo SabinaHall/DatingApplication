@@ -126,9 +126,6 @@
   <data name="Emailadress" xml:space="preserve">
     <value>Emailadress</value>
   </data>
-  <data name="Friends" xml:space="preserve">
-    <value>Friends</value>
-  </data>
   <data name="Language" xml:space="preserve">
     <value>Language</value>
   </data>
@@ -152,5 +149,8 @@
   </data>
   <data name="Username" xml:space="preserve">
     <value>Username</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Users</value>
   </data>
 </root>

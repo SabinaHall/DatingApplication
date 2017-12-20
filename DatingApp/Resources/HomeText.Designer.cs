@@ -88,15 +88,6 @@ namespace DatingApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Friends.
-        /// </summary>
-        public static string Friends {
-            get {
-                return ResourceManager.GetString("Friends", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
         public static string Language {
@@ -165,6 +156,15 @@ namespace DatingApp.Resources {
         public static string Username {
             get {
                 return ResourceManager.GetString("Username", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Users.
+        /// </summary>
+        public static string Users {
+            get {
+                return ResourceManager.GetString("Users", resourceCulture);
             }
         }
     }

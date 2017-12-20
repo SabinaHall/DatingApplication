@@ -10,7 +10,7 @@ namespace DatingApp.Models
     {
         public int PostId { get; set; }
 
-        [StringLength(500, MinimumLength = 3)]
+        //[StringLength(500, MinimumLength = 3)]
         public string Message { get; set; }
         public virtual User Sender { get; set; }
         public virtual User Receiver { get; set; }

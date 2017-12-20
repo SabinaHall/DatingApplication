@@ -14,12 +14,20 @@ namespace DatingApp.Controllers
 {
     public class UsersController : Controller
     {
-        private MyDataContext db = new MyDataContext();
-
         // GET: Users
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
-            return View(db.User.ToList());
+            using (MyDataContext db = new MyDataContext())
+            {
+                var users = (from u in db.User
+                            select u);
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    users = users.Where(x => x.Firstname.Contains(searchString));
+                    //return View(users);
+                }
+               return View(users.ToList());
+            }
         }
 
         // GET: Users/Details/5
@@ -29,12 +37,15 @@ namespace DatingApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.User.Find(id);
-            if (user == null)
+            using (MyDataContext db = new MyDataContext())
             {
-                return HttpNotFound();
+                User user = db.User.Find(id);
+                if (user == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(user);
             }
-            return View(user);
         }
 
         // GET: Users/Create
@@ -44,19 +55,19 @@ namespace DatingApp.Controllers
         }
 
         // POST: Users/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Firstname,Lastname,Age,Email,Password")] User user)
         {
             if (ModelState.IsValid)
             {
-                db.User.Add(user);
-                db.SaveChanges();
-                return RedirectToAction("Create", "Users");
+                using (MyDataContext db = new MyDataContext())
+                {
+                    db.User.Add(user);
+                    db.SaveChanges();
+                    return RedirectToAction("Login", "Users");
+                }
             }
-
             return View(user);
         }
 
@@ -67,13 +78,16 @@ namespace DatingApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.User.Find(id);
-            if (user == null)
+            using (MyDataContext db = new MyDataContext())
             {
-                db.SaveChanges();
-                return HttpNotFound();
+                User user = db.User.Find(id);
+                if (user == null)
+                {
+                    db.SaveChanges();
+                    return HttpNotFound();
+                }
+                return View(user);
             }
-            return View(user);
         }
 
         // POST: Users/Edit/5
@@ -83,13 +97,16 @@ namespace DatingApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Firstname,Lastname,Age,Email,Password")] User user)
         {
-            if (ModelState.IsValid)
+            using (MyDataContext db = new MyDataContext())
             {
-                db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Loggedin", "Users");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(user).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Loggedin", "Users");
+                }
+                return View(user);
             }
-            return View(user);
         }
 
         // GET: Users/Delete/5
@@ -99,12 +116,15 @@ namespace DatingApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.User.Find(id);
-            if (user == null)
+            using (MyDataContext db = new MyDataContext())
             {
-                return HttpNotFound();
+                User user = db.User.Find(id);
+                if (user == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(user);
             }
-            return View(user);
         }
 
         // POST: Users/Delete/5
@@ -112,19 +132,25 @@ namespace DatingApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            User user = db.User.Find(id);
-            db.User.Remove(user);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            using (MyDataContext db = new MyDataContext())
+            {
+                User user = db.User.Find(id);
+                db.User.Remove(user);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
+            using (MyDataContext db = new MyDataContext())
             {
-                db.Dispose();
+                if (disposing)
+                {
+                    db.Dispose();
+                }
+                base.Dispose(disposing);
             }
-            base.Dispose(disposing);
         }
 
         public ActionResult Login()
@@ -159,7 +185,10 @@ namespace DatingApp.Controllers
                 using (MyDataContext db = new MyDataContext())
                 {
                     int id = Id ?? int.Parse(Session["id"].ToString());
-                    var user = db.User.Include(i => i.Posts.Select(x => x.Sender)).Include(y => y.Friends.Select(x => x.To)).First(x => x.Id == id);
+                    var user = db.User
+                        .Include(i => i.Posts.Select(x => x.Sender))
+                        .Include(y => y.Friends.Select(x => x.To))
+                        .First(x => x.Id == id);
                     return View(user);
                 }
             }
@@ -177,15 +206,6 @@ namespace DatingApp.Controllers
             return RedirectToAction("index", "Home");
         }
 
-        public ActionResult Search()
-        {
-
-
-
-            return View();
-        }
-
-        
         public ActionResult AddFriend(int? id)
         {
             using (MyDataContext db = new MyDataContext())

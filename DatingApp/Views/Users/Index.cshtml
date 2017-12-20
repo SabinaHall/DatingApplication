@@ -1,0 +1,46 @@
+﻿@model IEnumerable<DatingApp.Models.User>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 class="breadcrumb">Sök efter användare</h2>
+
+@using (Html.BeginForm("Index", "Users", FormMethod.Get))
+{
+    <p>
+        Skriv in ett namn eller bokstav du vill söka efter 
+        @Html.TextBox("SearchString", null,  new { @class = "form-control valid" } ) 
+        <br />
+        <input type="submit" value="Sök" id="btnSubmit" class="btn btn-primary"/>
+    </p>
+}
+
+<table class="table table-hover">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Firstname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lastname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Age)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <a href="~/Users/LoggedIn/@item.Id">@Html.DisplayFor(modelItem => item.Firstname)</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lastname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+        </tr>
+    }
+</table>

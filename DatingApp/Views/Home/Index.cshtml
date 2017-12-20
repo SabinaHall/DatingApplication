@@ -8,13 +8,18 @@
 <div class="jumbotron">
     <h1>@DatingApp.Resources.HomeText.Login</h1>
     <br />
-    <p><a href="~/Users/Login" class="btn btn-primary btn-lg">@DatingApp.Resources.HomeText.Login &raquo;</a></p>
+
+    @*Måste översätta denna:*@
+    @Html.ActionLink("Logga in", "Login", "Users", null, new { @class = "btn btn-primary btn-large" })
 </div>
 
 <div class="jumbotron">
+
+ 
+
     <h2>@DatingApp.Resources.HomeText.Register</h2>
-    <p class="lead"></p>
-    <p><a href="~/Users/Create" class="btn btn-primary btn-lg">@DatingApp.Resources.HomeText.Click &raquo;</a></p>
+    @*Måste översätta detta:*@
+    @Html.ActionLink("Registrera", "Create", "Users", null, new { @class = "btn btn-primary btn-large" })
 </div>
 
 

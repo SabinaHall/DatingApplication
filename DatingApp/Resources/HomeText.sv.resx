@@ -126,9 +126,6 @@
   <data name="Emailadress" xml:space="preserve">
     <value>Epostadress</value>
   </data>
-  <data name="Friends" xml:space="preserve">
-    <value>Vänner</value>
-  </data>
   <data name="Language" xml:space="preserve">
     <value>Språk</value>
   </data>
@@ -152,5 +149,8 @@
   </data>
   <data name="Username" xml:space="preserve">
     <value>Användarnamn</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Användare</value>
   </data>
 </root>

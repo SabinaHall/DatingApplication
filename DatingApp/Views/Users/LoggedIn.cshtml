@@ -38,12 +38,20 @@
             <br />
 
             <h4 class="breadcrumb">Vänner</h4>
+            <br />
+            @*<ul>
+                @foreach (var item in Model.Friends)
+                {
+                    <li><a href="~/Users/LoggedIn/@Model.Id">@Html.DisplayFor(modelItem => item.To.Firstname)</a></li>
+                }
+            </ul>*@
+
             <table class="table table-striped">
                 <tr>
                     <th>Namn:</th>
                 </tr>
                 @foreach (var item in Model.Friends)
-                    {
+                {
                     <tr>
                         <td>@item.To.Firstname</td>
                     </tr>
@@ -53,23 +61,6 @@
             <br />
         </div>
 
-        @*<div class="col-md-4">
-            <h4 class="breadcrumb">Vänner <i class="glyphicon glyphicon-list"></i></h4>
-
-            <table class="table table-striped">
-                <tr>
-                    <th>Namn:</th>
-                </tr>
-                @foreach (var item in Model.Friends)
-                    {
-                    <tr>
-                        <td>@item.To.Firstname</td>
-                    </tr>
-                }
-            </table>
-
-        </div>*@
-
         <div class="col-md-4">
             <h4 class="breadcrumb">Vill du skriva ett nytt inlägg?<i class="glyphicon glyphicon-pencil"></i></h4>
 
@@ -77,13 +68,13 @@
             @using (Html.BeginForm("Create", "Posts", new { id = Model.Id }, FormMethod.Post))
             {
                 @Html.AntiForgeryToken()
-                <textarea name="Message" id="Message" class="form-control" cols="20" rows="2"></textarea>
+
+                <textarea required maxlength="200" draggable="true" name="Message" id="Message" class="form-control" cols="20" rows="2"></textarea>
                 <br />
                 <input type="submit" value="Skicka &raquo;" class="btn btn-default" />
             }
 
             <br />
-
             <h4 class="breadcrumb">Alla dina inlägg:</h4>
 
             <table class="table table-striped">
@@ -112,6 +103,7 @@
             <input type="submit" value="Lägg till vän" class="btn btn-info" />
         }
 
+
         @*@Html.ActionLink("Lägg till vän", "AddFriend", new { id = Model.Id })*@
 
         <br />
@@ -126,8 +118,16 @@
             <p>Efternamn: @Model.Lastname </p>
             <p>Ålder: @Model.Age</p>
             <br />
-            
+
             <h4 class="breadcrumb">Vänner</h4>
+
+            @*<ul>
+                @foreach (var item in Model.Friends)
+                {
+                    <li><a href="~/Users/LoggedIn/@Model.Id">@Html.DisplayFor(modelItem => item.To.Firstname)</a></li>
+                }
+            </ul>*@
+
             <table class="table table-striped">
                 <tr>
                     <th>Namn:</th>
@@ -192,6 +192,7 @@ else
     <br />
     <div class="col-md-4">
         <h4 class="breadcrumb">@Model.Firstname inlägg:</h4>
+
         <table class="table table-striped">
             <tr>
                 <th>Skickat från:</th>
@@ -212,7 +213,7 @@ else
 <div class="clearfix">
 </div>
 
-@section Scripts {
+@section Scripts{
     @Scripts.Render("~/bundles/jqueryval")
 }
 
