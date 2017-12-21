@@ -1,0 +1,27 @@
+﻿@model DatingApp.Models.User
+
+@{
+    ViewBag.Title = "ChangeProfilePic";
+}
+
+<h2 class="breadcrumb">Välj en ny profilbild</h2>
+
+<br />
+
+@using (Html.BeginForm("ChangeProfilePic", "Users", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+<div class="form-group">
+        @Html.Label("Profilbild", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="file" name="picUpload" />
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Spara" class="btn btn-default" />
+        </div>
+    </div>
+
+}

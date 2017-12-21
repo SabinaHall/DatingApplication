@@ -67,24 +67,6 @@ namespace DatingApp.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //public ActionResult NewMessage(int? id)
-        //{
-        //    using (MyDataContext db = new MyDataContext())
-        //    {
-        //        int sessionId = int.Parse(Session["id"].ToString());
-        //        var userSender = db.User.First(x => x.Id == sessionId);
-
-        //        User userReciver = db.User.Find(id);
-
-        //        Post post = new Post();
-        //        post
-
-        //        userReciver.Posts.Add(userSender);
-        //        post.Receiver = userReciver;
-        //    }
-        //}
-
         // GET: Posts/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -101,8 +83,6 @@ namespace DatingApp.Controllers
         }
 
         // POST: Posts/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "PostId,Message")] Post post)

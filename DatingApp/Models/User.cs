@@ -35,8 +35,18 @@ namespace DatingApp.Models
         [StringLength(30, MinimumLength = 6, ErrorMessage = "Invalid")]
         public string Password { get; set; }
 
+        public bool IsVisible { get; set; }
+
+        [Editable(false)]
+        public string Filename { get; internal set; }
+
+        public string ContentType { get; internal set; }
+
+        public byte[] File { get; internal set; }
+
 
         public virtual ICollection<Post> Posts { get; set; }
         public virtual ICollection<Friend> Friends { get; set; }
+
     }
 }

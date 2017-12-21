@@ -15,7 +15,7 @@
 
 <div class="jumbotron">
 
- 
+
 
     <h2>@DatingApp.Resources.HomeText.Register</h2>
     @*Måste översätta detta:*@
@@ -28,8 +28,8 @@
             foreach (var item in Model)
             {
             <div class="col-md-4">
+                <a href="~/Users/LoggedIn/@item.Id"><img height="200" width="200" src="@Url.Action("Image", "Users", new { id = item.Id })" /></a>
                 <a href="~/Users/LoggedIn/@item.Id"><h2>@Html.DisplayFor(modelItem => item.Firstname)</h2></a>
-                <p>Här ska vi lägga bild sen när vi vet hur man lagrar det.</p>
             </div>
             i++;
 

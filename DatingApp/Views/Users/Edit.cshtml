@@ -7,10 +7,10 @@
 
 <h2 class="breadcrumb">Ändra informarion</h2>
 
-@using (Html.BeginForm())
-{
+@using (Html.BeginForm()) {
+
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Skriv dina ändringar och klicka sedan på spara.</h4>
         <hr />
@@ -57,12 +57,48 @@
             </div>
         </div>
 
+
+        @*Här vill vi generear en filuppladdning som har den bilden användaren har som profilbild,
+        och dölja denna så man inte kan ändra bild härifrån, annars "körs" bilden över i databasen och blir null.*@
+        @*<div class="form-group">
+                <input type="file" name="picUpload" hidden value="@Model.File" />
+        </div>*@
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Spara" class="btn btn-default" />
             </div>
         </div>
     </div>
-}
+
+
+} 
+
+        @using(Html.BeginForm("IsVisible", "Users", new { id = Model.Id }, FormMethod.Post)){
+        @Html.AntiForgeryToken()
+
+            if (Model.IsVisible == false)
+            {
+                <h4 class="breadcrumb">Vill du göra dig <b>osynlig</b> för andra användare?</h4>
+                <input type="submit" value="Aktivera &raquo;" class="btn btn-default" />
+            }
+            else
+            {
+                <h4 class="breadcrumb">Vill du göra dig <b>synlig</b> för andra användare?</h4>
+                <input type="submit" value="Aktivera &raquo;" class="btn btn-default" />
+            }
+
+
+            @*@Html.ActionLink("Aktivera", "LoggedIn", "Users", null, new { @class = "btn btn-primary btn-large" })*@
+        }
+
+        @*<div class="form-group">
+                @Html.Label("Profilbild", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="file" name="picUpload" />
+                </div>
+            </div>*@
+
+
 
 <div class="clearfix"></div>

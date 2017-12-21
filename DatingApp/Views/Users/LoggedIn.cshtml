@@ -17,14 +17,17 @@
         <h4>Välkommen @Model.Email, du är nu inloggad!</h4>
 
         <br />
+
+
         <div class="col-md-4">
             <h4 class="breadcrumb">Profilbild <i class="glyphicon glyphicon-user"></i></h4>
-            <img height="200" width="200" src="~/Content/avatar.png" />
+            <img height="300" width="300" src="@Url.Action("Image", new { id = Model.Id })" />
 
             <br />
 
             <h4>Vill du ladda upp en ny profilbild? </h4>
-            <p><a href="~/Users/LoggedIn" class="btn btn-info"><i class="glyphicon glyphicon-upload"></i></a></p>
+
+            <p><a href="~/Users/ChangeProfilePic/@Model.Id" class="btn btn-info"><i class="glyphicon glyphicon-upload"></i></a></p>
         </div>
 
         <div class="col-md-4">
@@ -33,12 +36,21 @@
             <p>Efternamn: @Model.Lastname </p>
             <p>Ålder: @Model.Age</p>
             <br />
+            @if (Model.IsVisible == true)
+            {
+                <p>Synlighet: Andra användare kan inte söka efter dig med sökfunktionen.</p>
+            }
+            else
+            {
+                <p>Synlighet: Andra användare kan söka efter dig med sökfunktionen.</p>
+            }
+
             <h4>Vill du ändra din information?</h4>
             <p><a href="~/Users/Edit/@Model.Id" class="btn btn-info">Klicka här &raquo;</a></p>
             <br />
 
             <h4 class="breadcrumb">Vänner</h4>
-            <br />
+   
             @*<ul>
                 @foreach (var item in Model.Friends)
                 {
@@ -103,13 +115,10 @@
             <input type="submit" value="Lägg till vän" class="btn btn-info" />
         }
 
-
-        @*@Html.ActionLink("Lägg till vän", "AddFriend", new { id = Model.Id })*@
-
         <br />
         <div class="col-md-4">
             <h4 class="breadcrumb">Profilbild</h4>
-            <img height="200" width="200" src="~/Content/avatar.png" />
+            <img height="300" width="300" src="@Url.Action("Image", new { id = Model.Id })" />
         </div>
 
         <div class="col-md-4">
@@ -178,7 +187,7 @@ else
     <br />
     <div class="col-md-4">
         <h4 class="breadcrumb">Profilbild</h4>
-        <img height="200" width="200" src="~/Content/avatar.png" />
+        <img height="300" width="300" src="@Url.Action("Image", new { id = Model.Id })" />
     </div>
     <br />
     <div class="col-md-4">
