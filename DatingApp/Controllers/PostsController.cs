@@ -62,7 +62,7 @@ namespace DatingApp.Controllers
                     userReciver.Posts.Add(post);
                     db.SaveChanges();
                 }
-                return RedirectToAction("LoggedIn", "Users");
+                return Redirect(Request.UrlReferrer.PathAndQuery);
             }
             return View();
         }

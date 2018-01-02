@@ -114,16 +114,21 @@ namespace DatingApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Firstname,Lastname,Age,Email,Password")] User user)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && Session["Id"] != null)
             {
                 using (MyDataContext db = new MyDataContext())
-                { 
+                {
+                    //var hej = new User { Firstname = user.Firstname, Email = user.Email };
                     db.Entry(user).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Loggedin", "Users");
                 }
             }
-            return View(user);
+            else
+            {
+                return RedirectToAction("Unauthorized", "Error");
+            }
+            //return View(user);
         }
 
         //GET
@@ -239,7 +244,6 @@ namespace DatingApp.Controllers
             return View();
         }
 
-
         public ActionResult LoggedIn(int? Id)
         {
             if (Session["Id"] != null || Id != null)
@@ -282,6 +286,7 @@ namespace DatingApp.Controllers
                     Friend friend = new Friend();
                     friend.From = user;
                     friend.To = requestTo;
+                    friend.IsFriend = true;
                     user.Friends.Add(friend);
                     db.SaveChanges();
 

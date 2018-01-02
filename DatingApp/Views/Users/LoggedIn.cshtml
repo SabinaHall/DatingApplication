@@ -7,6 +7,7 @@
 
 
 @if (Session["Id"] != null)
+
 {
     int IdSession = int.Parse(Session["Id"].ToString());
 
@@ -18,17 +19,33 @@
 
         <br />
 
+        if (Model.Filename != null)
+        {
+            <div class="col-md-4">
+                <h4 class="breadcrumb">Profilbild <i class="glyphicon glyphicon-user"></i></h4>
+                <img height="300" width="300" src="@Url.Action("Image", new { id = Model.Id })" />
 
-        <div class="col-md-4">
-            <h4 class="breadcrumb">Profilbild <i class="glyphicon glyphicon-user"></i></h4>
-            <img height="300" width="300" src="@Url.Action("Image", new { id = Model.Id })" />
+                <br />
 
-            <br />
+                <h4>Vill du ladda upp en ny profilbild? </h4>
 
-            <h4>Vill du ladda upp en ny profilbild? </h4>
+                <p><a href="~/Users/ChangeProfilePic/@Model.Id" class="btn btn-info"><i class="glyphicon glyphicon-upload"></i></a></p>
+            </div>
+        }
+        else
+        {
+            <div class="col-md-4">
+                <h4 class="breadcrumb">Profilbild <i class="glyphicon glyphicon-user"></i></h4>
+                <img height="300" width="300" src="~/Content/avatar.png" />
 
-            <p><a href="~/Users/ChangeProfilePic/@Model.Id" class="btn btn-info"><i class="glyphicon glyphicon-upload"></i></a></p>
-        </div>
+                <br />
+
+                <h4>Vill du ladda upp en ny profilbild? </h4>
+
+                <p><a href="~/Users/ChangeProfilePic/@Model.Id" class="btn btn-info"><i class="glyphicon glyphicon-upload"></i></a></p>
+            </div>
+        }
+
 
         <div class="col-md-4">
             <h4 class="breadcrumb">Information om användare <i class="glyphicon glyphicon-info-sign"></i></h4>
@@ -50,13 +67,13 @@
             <br />
 
             <h4 class="breadcrumb">Vänner</h4>
-   
+
             @*<ul>
-                @foreach (var item in Model.Friends)
-                {
-                    <li><a href="~/Users/LoggedIn/@Model.Id">@Html.DisplayFor(modelItem => item.To.Firstname)</a></li>
-                }
-            </ul>*@
+                    @foreach (var item in Model.Friends)
+                    {
+                        <li><a href="~/Users/LoggedIn/@Model.Id">@Html.DisplayFor(modelItem => item.To.Firstname)</a></li>
+                    }
+                </ul>*@
 
             <table class="table table-striped">
                 <tr>
@@ -103,73 +120,110 @@
                 }
             </table>
         </div>
-    }
-
-    if (Session["Id"] != null && Model.Id != IdSession)
-    {
-        using (Html.BeginForm("AddFriend", "Users", new { id = Model.Id }, FormMethod.Post))
-        {
-            @Html.AntiForgeryToken()
-
-            <br />
-            <input type="submit" value="Lägg till vän" class="btn btn-info" />
         }
 
+        if (Session["Id"] != null && Model.Id != IdSession)
+        {
+            using (Html.BeginForm("AddFriend", "Users", new { id = Model.Id }, FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                <br />
+                <input type="submit" value="Lägg till vän" class="btn btn-info" />
+            }
+
+            <br />
+            <div class="col-md-4">
+                <h4 class="breadcrumb">Profilbild</h4>
+                <img height="300" width="300" src="@Url.Action("Image", new { id = Model.Id })" />
+            </div>
+
+            <div class="col-md-4">
+                <h4 class="breadcrumb">Information om användare</h4>
+                <p><i class="glyphicon glyphicon-search"></i>Förnamn: @Model.Firstname</p>
+                <p>Efternamn: @Model.Lastname </p>
+                <p>Ålder: @Model.Age</p>
+                <br />
+
+                <h4 class="breadcrumb">Vänner</h4>
+
+                @*<ul>
+                        @foreach (var item in Model.Friends)
+                        {
+                            <li><a href="~/Users/LoggedIn/@Model.Id">@Html.DisplayFor(modelItem => item.To.Firstname)</a></li>
+                        }
+                    </ul>*@
+
+                <table class="table table-striped">
+                    <tr>
+                        <th>Namn:</th>
+                    </tr>
+                    @foreach (var item in Model.Friends)
+                    {
+                        <tr>
+                            <td>@item.To.Firstname</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+
+
+            <div class="col-md-4">
+                <h4 class="breadcrumb">Vill du skriva ett nytt inlägg?<i class="glyphicon glyphicon-pencil"></i></h4>
+
+                @using (Html.BeginForm("Create", "Posts", new { id = Model.Id }, FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <textarea name="Message" id="Message" class="form-control" cols="20" rows="2"></textarea>
+                    <br />
+                    <input type="submit" value="Skicka &raquo;" class="btn btn-default" />
+                }
+                <br />
+
+                <h4 class="breadcrumb">@Model.Firstname inlägg:</h4>
+                <table class="table table-striped">
+                    <tr>
+                        <th>Skickat från:</th>
+                        <th>Meddelande:</th>
+                    </tr>
+
+                    @foreach (var item in Model.Posts)
+                    {
+                        <tr>
+                            <td>@item.Sender.Firstname</td>
+                            <td>@item.Message</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        }
+    }
+
+    else
+    {
         <br />
         <div class="col-md-4">
             <h4 class="breadcrumb">Profilbild</h4>
             <img height="300" width="300" src="@Url.Action("Image", new { id = Model.Id })" />
         </div>
-
+        <br />
         <div class="col-md-4">
             <h4 class="breadcrumb">Information om användare</h4>
             <p><i class="glyphicon glyphicon-search"></i>Förnamn: @Model.Firstname</p>
             <p>Efternamn: @Model.Lastname </p>
             <p>Ålder: @Model.Age</p>
             <br />
-
-            <h4 class="breadcrumb">Vänner</h4>
-
-            @*<ul>
-                @foreach (var item in Model.Friends)
-                {
-                    <li><a href="~/Users/LoggedIn/@Model.Id">@Html.DisplayFor(modelItem => item.To.Firstname)</a></li>
-                }
-            </ul>*@
-
-            <table class="table table-striped">
-                <tr>
-                    <th>Namn:</th>
-                </tr>
-                @foreach (var item in Model.Friends)
-                    {
-                    <tr>
-                        <td>@item.To.Firstname</td>
-                    </tr>
-                }
-            </table>
         </div>
 
-
+        <br />
         <div class="col-md-4">
-            <h4 class="breadcrumb">Vill du skriva ett nytt inlägg?<i class="glyphicon glyphicon-pencil"></i></h4>
-
-            @using (Html.BeginForm("Create", "Posts", new { id = Model.Id }, FormMethod.Post))
-            {
-                @Html.AntiForgeryToken()
-                <textarea name="Message" id="Message" class="form-control" cols="20" rows="2"></textarea>
-                <br />
-                <input type="submit" value="Skicka &raquo;" class="btn btn-default" />
-            }
-            <br />
-
             <h4 class="breadcrumb">@Model.Firstname inlägg:</h4>
+
             <table class="table table-striped">
                 <tr>
                     <th>Skickat från:</th>
                     <th>Meddelande:</th>
                 </tr>
-
                 @foreach (var item in Model.Posts)
                 {
                     <tr>
@@ -180,51 +234,14 @@
             </table>
         </div>
     }
-}
 
-else
-{
-    <br />
-    <div class="col-md-4">
-        <h4 class="breadcrumb">Profilbild</h4>
-        <img height="300" width="300" src="@Url.Action("Image", new { id = Model.Id })" />
-    </div>
-    <br />
-    <div class="col-md-4">
-        <h4 class="breadcrumb">Information om användare</h4>
-        <p><i class="glyphicon glyphicon-search"></i>Förnamn: @Model.Firstname</p>
-        <p>Efternamn: @Model.Lastname </p>
-        <p>Ålder: @Model.Age</p>
-        <br />
+
+    <div class="clearfix">
     </div>
 
-    <br />
-    <div class="col-md-4">
-        <h4 class="breadcrumb">@Model.Firstname inlägg:</h4>
-
-        <table class="table table-striped">
-            <tr>
-                <th>Skickat från:</th>
-                <th>Meddelande:</th>
-            </tr>
-            @foreach (var item in Model.Posts)
-            {
-                <tr>
-                    <td>@item.Sender.Firstname</td>
-                    <td>@item.Message</td>
-                </tr>
-            }
-        </table>
-    </div>
-}
-
-
-<div class="clearfix">
-</div>
-
-@section Scripts{
-    @Scripts.Render("~/bundles/jqueryval")
-}
+    @section Scripts{
+        @Scripts.Render("~/bundles/jqueryval")
+    }
 
 
 

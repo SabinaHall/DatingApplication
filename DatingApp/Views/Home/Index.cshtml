@@ -25,13 +25,25 @@
 
 <div class="row">
     @{ int i = 0;
-            foreach (var item in Model)
+        foreach (var item in Model)
+        {
+            if (item.Filename != null)
             {
-            <div class="col-md-4">
-                <a href="~/Users/LoggedIn/@item.Id"><img height="200" width="200" src="@Url.Action("Image", "Users", new { id = item.Id })" /></a>
-                <a href="~/Users/LoggedIn/@item.Id"><h2>@Html.DisplayFor(modelItem => item.Firstname)</h2></a>
-            </div>
-            i++;
+                <div class="col-md-4">
+                    <a href="~/Users/LoggedIn/@item.Id"><img height="200" width="200" src="@Url.Action("Image", "Users", new { id = item.Id })" /></a>
+                    <a href="~/Users/LoggedIn/@item.Id"><h2>@Html.DisplayFor(modelItem => item.Firstname)</h2></a>
+                </div>
+                i++;
+            }
+
+            else
+            {
+                <div class="col-md-4">
+                    <img height="200" width="200" src="~/Content/avatar.png" />
+                    <a href="~/Users/LoggedIn/@item.Id"><h2>@Html.DisplayFor(modelItem => item.Firstname)</h2></a>
+                </div>
+                i++;
+            }
 
             if (i == 3)
             {

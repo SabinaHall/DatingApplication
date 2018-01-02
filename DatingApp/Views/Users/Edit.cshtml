@@ -62,7 +62,10 @@
         och dölja denna så man inte kan ändra bild härifrån, annars "körs" bilden över i databasen och blir null.*@
         @*<div class="form-group">
                 <input type="file" name="picUpload" hidden value="@Model.File" />
+            
         </div>*@
+
+        @Html.EditorFor(model => model.Filename, new { htmlAttributes = new { @class = "form-controll" } })
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -70,7 +73,6 @@
             </div>
         </div>
     </div>
-
 
 } 
 

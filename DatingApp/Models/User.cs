@@ -14,10 +14,12 @@ namespace DatingApp.Models
 
         [Required]
         [Display(Name = "Förnamn")]
+        [StringLength(30, MinimumLength = 2, ErrorMessage = "Invalid")]
         public string Firstname { get; set; }
 
         [Required]
         [Display(Name = "Efternamn")]
+        [StringLength(30, MinimumLength = 2, ErrorMessage = "Invalid")]
         public string Lastname { get; set; }
 
         [Required]
@@ -37,8 +39,8 @@ namespace DatingApp.Models
 
         public bool IsVisible { get; set; }
 
-        [Editable(false)]
-        public string Filename { get; internal set; }
+        //internal
+        public string Filename { get; set; }
 
         public string ContentType { get; internal set; }
 
