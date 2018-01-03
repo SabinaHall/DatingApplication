@@ -16,6 +16,7 @@ namespace DatingApp.Controllers
     public class UsersController : Controller
     {
         // GET: Users
+        //Tar in en söksträng som gör att man kan söka efter en användare, den kollar om personen är synlig och sen skriver ut de användare som matchar mot söksträngen. 
         public ActionResult Index(string searchString)
         {
             using (MyDataContext db = new MyDataContext())
@@ -57,6 +58,8 @@ namespace DatingApp.Controllers
         }
 
         // POST: Users/Create
+        //När man skapar en profil ska man kunna ladda upp en bild. Man kollar om den är ifylld eller inte och lägger till 
+        //detta till personen i databasen och läser upp bilden på profilsidan. Man kan ladda upp med bild eller utan bild. 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Firstname,Lastname,Age,Email,Password")] User user, HttpPostedFileBase picUpload)
@@ -150,6 +153,7 @@ namespace DatingApp.Controllers
             }
         }
 
+        //Hämtar hem id till personen och kollar om man har lagt till en ful och sedan läser man upp filen på profilsidan
         [HttpPost]
         public ActionResult ChangeProfilePic(HttpPostedFileBase picUpload, int? id)
         {
@@ -244,6 +248,8 @@ namespace DatingApp.Controllers
             return View();
         }
 
+        //Den person som är inloggad behöver komma åt vem som har skickat inlägg och vem man skickar en vänförfrågan till.
+        //Här görs en lambda som hjälper oss att hämta detta. 
         public ActionResult LoggedIn(int? Id)
         {
             if (Session["Id"] != null || Id != null)
@@ -272,6 +278,8 @@ namespace DatingApp.Controllers
             return RedirectToAction("index", "Home");
         }
 
+        //När man klickar på knappen så hämtar man hem dens persons id man är inne på och vem som är inloggad och sparar detta
+        //till databasen där ena är from (inloggad) och andra är to(till vem).
         public ActionResult AddFriend(int? id)
         {
             using (MyDataContext db = new MyDataContext())
@@ -299,6 +307,7 @@ namespace DatingApp.Controllers
             }
         }
 
+        //Hämtar hem rätt bild till rätt persons profil
         public ActionResult Image(int id)
         {
             using (MyDataContext db = new MyDataContext())
@@ -335,6 +344,8 @@ namespace DatingApp.Controllers
         //    }
         //}
 
+
+        //Kappen tar in personens id och sätter den till antingen false eller true om personen vill vara synlig eller ej och sparar detta
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult IsVisible(int? id)

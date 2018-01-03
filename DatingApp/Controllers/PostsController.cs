@@ -15,6 +15,7 @@ namespace DatingApp.Controllers
         private MyDataContext db = new MyDataContext();
 
         // GET: Posts
+        //Hämtar de inlägg som är skrivna till den personens sida du är inne på 
         public ActionResult Index(int? id)
         {
             var post = db.Posts.Include(x => x.Receiver.Id);
@@ -43,6 +44,7 @@ namespace DatingApp.Controllers
         }
 
         // POST: Posts/Create
+        //Hämtar in ett id och sätter vem som har skickat inlägget(userSender) och vem som kommer att få inlägget(UserReciver)
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "PostId,Message")] Post post, int? id)
