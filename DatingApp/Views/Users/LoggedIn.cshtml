@@ -7,10 +7,8 @@
 
 
 @if (Session["Id"] != null)
-
 {
     int IdSession = int.Parse(Session["Id"].ToString());
-
 
     if (Session["Id"] != null && Model.Id == IdSession)
     {
@@ -74,36 +72,26 @@
                     <li><a href="~/Users/LoggedIn/@item.To.Id">@Html.DisplayFor(modelItem => item.To.Firstname)</a></li>
                 }
             </ul>
-
-
-            @*<table class="table table-striped">
-                    <tr>
-                        <th>Namn:</th>
-                    </tr>
-                    @foreach (var item in Model.Friends)
-                    {
-                        <tr>
-                            <td>@item.To.Firstname</td>
-                        </tr>
-                    }
-                </table>*@
-
             <br />
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-4" id="result">
             <h4 class="breadcrumb">Vill du skriva ett nytt inlägg?<i class="glyphicon glyphicon-pencil"></i></h4>
 
+            <form id="postForm">
+                @using (Html.BeginForm("Create", "Posts", new { id = Model.Id }, FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
 
-            @using (Html.BeginForm("Create", "Posts", new { id = Model.Id }, FormMethod.Post))
-            {
-                @Html.AntiForgeryToken()
+                    <textarea required maxlength="200" draggable="true" name="Message" id="Message" class="form-control" cols="20" rows="2"></textarea>
+                    <br />
+                    <input type="submit" value="Skicka &raquo;" class="btn btn-default" id="ApiIdBtn" />
+                }
 
-                <textarea required maxlength="200" draggable="true" name="Message" id="Message" class="form-control" cols="20" rows="2"></textarea>
-                <br />
-                <input type="submit" value="Skicka &raquo;" class="btn btn-default" />
-            }
+            </form>
+        </div>
 
+        <div class="col-md-4">
             <br />
             <h4 class="breadcrumb">Alla dina inlägg:</h4>
 
@@ -113,7 +101,7 @@
                     <th>Meddelande:</th>
                 </tr>
                 @foreach (var item in Model.Posts)
-                {
+                    {
                     <tr>
                         <td>@item.Sender.Firstname</td>
                         <td>@item.Message</td>
@@ -134,46 +122,52 @@
             <input type="submit" value="Lägg till vän" class="btn btn-info" />
         }
 
-        @*bool isFriend = false;
-            if (Model.Friends.Count > 0)
-            {
-                foreach (var item in Model.Friends)
-                {
-                    if (item.To.Id == int.Parse(Session["Id"].ToString()))
+@*bool isFriend = false;
+if (Model.Friends.Count > 0)
+{
+    foreach (var item in Model.Friends)
+    {
+        if (item.To.Id == int.Parse(Session["Id"].ToString()))
+        {
+            <p>Du följer den här personen.</p>
+                        isFriend = true;
+                        break;
+                    }
+                    if(item.From.Id == Model.Id)
                     {
                         <p>Du följer den här personen.</p>
-
-                        isFriend = true;
-                    }
-                    else if (isFriend == false)
-                    {
-                        using (Html.BeginForm("AddFriend", "Users", new { id = Model.Id }, FormMethod.Post))
-                        {
-                            @Html.AntiForgeryToken()
-
-                            <br />
-                            <input type="submit" value="Lägg till vän" class="btn btn-info" />
-                        }
                     }
                 }
             }
-            else
+            if (isFriend == false)
             {
-                using (Html.BeginForm("AddFriend", "Users", new { id = Model.Id }, FormMethod.Post))
-                {
-                    @Html.AntiForgeryToken()
+           <br />
+           <input type="submit" value="Lägg till vän" class="btn btn-info" />
+        }
 
+            @*else 
+            {
                     <br />
-                            <input type="submit" value="Lägg till vän" class="btn btn-info" />
-                }
+                    <input type="submit" value="Lägg till vän" class="btn btn-info" />
             }*@
-
+        
 
         <br />
-        <div class="col-md-4">
-            <h4 class="breadcrumb">Profilbild</h4>
-            <img height="300" width="300" src="@Url.Action("Image", new { id = Model.Id })" />
-        </div>
+        if (Model.Filename != null)
+        {
+            <div class="col-md-4">
+                <h4 class="breadcrumb">Profilbild</h4>
+                <img height="300" width="300" src="@Url.Action("Image", new { id = Model.Id })" />
+            </div>
+        }
+        else
+        {
+            <div class="col-md-4">
+                <h4 class="breadcrumb">Profilbild <i class="glyphicon glyphicon-user"></i></h4>
+                <img height="300" width="300" src="~/Content/avatar.png" />
+            </div>
+        }
+
 
         <div class="col-md-4">
             <h4 class="breadcrumb">Information om användare</h4>
@@ -183,25 +177,12 @@
             <br />
 
             <h4 class="breadcrumb">Vänner</h4>
-
             <ul>
                 @foreach (var item in Model.Friends)
-                    {
+                {
                     <li><a href="~/Users/LoggedIn/@item.To.Id">@Html.DisplayFor(modelItem => item.To.Firstname)</a></li>
                 }
             </ul>
-
-            @*<table class="table table-striped">
-                    <tr>
-                        <th>Namn:</th>
-                    </tr>
-                    @foreach (var item in Model.Friends)
-                    {
-                        <tr>
-                            <td>@item.To.Firstname</td>
-                        </tr>
-                    }
-                </table>*@
         </div>
 
 
@@ -209,11 +190,11 @@
             <h4 class="breadcrumb">Vill du skriva ett nytt inlägg?<i class="glyphicon glyphicon-pencil"></i></h4>
 
             @using (Html.BeginForm("Create", "Posts", new { id = Model.Id }, FormMethod.Post))
-            {
+                    {
                 @Html.AntiForgeryToken()
                 <textarea name="Message" id="Message" class="form-control" cols="20" rows="2"></textarea>
                 <br />
-                    <input type="submit" value="Skicka &raquo;" class="btn btn-default" />
+                        <input type="submit" value="Skicka &raquo;" class="btn btn-default" />
             }
             <br />
 
@@ -225,7 +206,7 @@
                 </tr>
 
                 @foreach (var item in Model.Posts)
-                    {
+                {
                     <tr>
                         <td>@item.Sender.Firstname</td>
                         <td>@item.Message</td>
@@ -239,11 +220,22 @@
 else
 {
     <br />
-    <div class="col-md-4">
-        <h4 class="breadcrumb">Profilbild</h4>
-        <img height="300" width="300" src="@Url.Action("Image", new { id = Model.Id })" />
-    </div>
-    <br />
+    if (Model.Filename != null)
+    {
+        <div class="col-md-4">
+            <h4 class="breadcrumb">Profilbild</h4>
+            <img height="300" width="300" src="@Url.Action("Image", new { id = Model.Id })" />
+        </div>
+        <br />
+    }
+    else
+    {
+        <div class="col-md-4">
+            <h4 class="breadcrumb">Profilbild <i class="glyphicon glyphicon-user"></i></h4>
+            <img height="300" width="300" src="~/Content/avatar.png" />
+        </div>
+    }
+
     <div class="col-md-4">
         <h4 class="breadcrumb">Information om användare</h4>
         <p><i class="glyphicon glyphicon-search"></i>Förnamn: @Model.Firstname</p>
@@ -253,23 +245,23 @@ else
     </div>
 
     <br />
-        <div class="col-md-4">
-            <h4 class="breadcrumb">@Model.Firstname inlägg:</h4>
+                <div class="col-md-4">
+                    <h4 class="breadcrumb">@Model.Firstname inlägg:</h4>
 
-            <table class="table table-striped">
-                <tr>
-                    <th>Skickat från:</th>
-                    <th>Meddelande:</th>
-                </tr>
-                @foreach (var item in Model.Posts)
-                {
-                    <tr>
-                        <td>@item.Sender.Firstname</td>
-                        <td>@item.Message</td>
-                    </tr>
-                }
-            </table>
-        </div>
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Skickat från:</th>
+                            <th>Meddelande:</th>
+                        </tr>
+                        @foreach (var item in Model.Posts)
+                        {
+                            <tr>
+                                <td>@item.Sender.Firstname</td>
+                                <td>@item.Message</td>
+                            </tr>
+                        }
+                    </table>
+                </div>
 }
 
 
@@ -278,6 +270,7 @@ else
 
 @section Scripts{
     @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/API.js"></script>
 }
 
 

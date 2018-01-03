@@ -42,7 +42,7 @@ namespace DatingApp.Controllers
             return View();
         }
 
-        // POST: Posts/Create
+        //POST: Posts/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "PostId,Message")] Post post, int? id)

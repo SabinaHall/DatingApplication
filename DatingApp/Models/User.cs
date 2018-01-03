@@ -39,7 +39,7 @@ namespace DatingApp.Models
 
         public bool IsVisible { get; set; }
 
-        //internal
+        //internal set
         public string Filename { get; set; }
 
         public string ContentType { get; internal set; }

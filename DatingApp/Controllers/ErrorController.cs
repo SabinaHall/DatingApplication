@@ -25,7 +25,5 @@ namespace DatingApp.Controllers
             Response.StatusCode = 401;
             return View("Unauthorized");
         }
-
-
     }
 }

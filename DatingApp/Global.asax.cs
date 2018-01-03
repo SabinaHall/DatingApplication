@@ -6,6 +6,11 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using DatingApp.Models;
+using System.Web.Http;
+using Newtonsoft.Json.Serialization;
+using System.Web.SessionState;
+using System.Web.Http.WebHost;
 
 namespace DatingApp
 {
@@ -13,7 +18,7 @@ namespace DatingApp
     {
         protected void Application_Start()
         {
-            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<Models.MyDataContext>());
+            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<MyDataContext>());
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
@@ -37,5 +42,4 @@ namespace DatingApp
 
         }
     }
-
 }
