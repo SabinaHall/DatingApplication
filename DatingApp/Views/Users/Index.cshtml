@@ -10,7 +10,7 @@
 {
     <p>
         Skriv in ett namn eller bokstav du vill söka efter 
-        @Html.TextBox("SearchString", null,  new { @class = "form-control valid" } ) 
+        @Html.TextBox("SearchString", null,  new {required = "required" }) 
         
         <br />
         <input type="submit" value="Sök" id="btnSubmit" class="btn btn-primary" />

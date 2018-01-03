@@ -14,6 +14,7 @@
 <div class="form-group">
         @Html.Label("Profilbild", new { @class = "control-label col-md-2" })
         <div class="col-md-10">
+            @* Tillåter bara en specifik ändelse så att man vet att det är en bild som laddas in *@
             <input type="file" name="picUpload" accept=".png, .jpg, .jpeg, .gif, .tif"/>
         </div>
     </div>

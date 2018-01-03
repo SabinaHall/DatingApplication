@@ -22,7 +22,7 @@
     @Html.ActionLink("Registrera", "Create", "Users", null, new { @class = "btn btn-primary btn-large" })
 </div>
 
-
+@* Loopar ut exempelanvändare och dens bild som länk på startsidan *@
 <div class="row">
     @{ int i = 0;
         foreach (var item in Model)
