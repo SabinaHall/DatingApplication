@@ -11,6 +11,7 @@ using System.Web.Http;
 using Newtonsoft.Json.Serialization;
 using System.Web.SessionState;
 using System.Web.Http.WebHost;
+using DatingApp.App_Start;
 
 namespace DatingApp
 {
@@ -22,6 +23,7 @@ namespace DatingApp
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            GlobalConfiguration.Configure(WebApiConfig.Register);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }

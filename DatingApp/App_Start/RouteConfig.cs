@@ -22,29 +22,15 @@ namespace DatingApp
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
 
-            HttpConfiguration config = GlobalConfiguration.Configuration;
+            //HttpConfiguration config = GlobalConfiguration.Configuration;
 
-            config.Routes.MapHttpRoute(
-            name: "DefaultApi",
-            routeTemplate: "api/{controller}/{id}",
-            defaults: new { id = RouteParameter.Optional }
-            );
+            //config.Routes.MapHttpRoute(
+            //name: "DefaultApi",
+            //routeTemplate: "api/{controller}/{id}",
+            //defaults: new { id = RouteParameter.Optional }
+            //);
         }
     }
 
-    public class MyHttpControllerHandler : HttpControllerHandler, IRequiresSessionState
-    {
-        public MyHttpControllerHandler(RouteData routeData) : base(routeData)
-        {
 
-        }
-    }
-
-    public class MyHtttpControllerRouteHandler : HttpControllerRouteHandler
-    {
-        protected override IHttpHandler GetHttpHandler(RequestContext requestContext)
-        {
-            return new MyHttpControllerHandler(requestContext.RouteData);
-        }
-    }
 }

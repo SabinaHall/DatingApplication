@@ -14,32 +14,53 @@ namespace DatingApp.Controllers.Api
 
         [ValidateAntiForgeryToken]
         [System.Web.Http.HttpPost]
-        public void Create([Bind(Include = "PostId,Message")] Post post, int? id)
+        public void Create([FromBody] Post post, int? id)
         {
-            var session = HttpContext.Current.Session;
-            if (ModelState.IsValid && session != null)
+            //var session = HttpContext.Current.Session;
+
+            if (ModelState.IsValid)
             {
                 using (MyDataContext db = new MyDataContext())
                 {
-                    int sessionId = int.Parse(session.ToString());
-                    var userSender = db.User.First(x => x.Id == sessionId);
+                    User sender = db.User.Find(id);
 
-                    User userReciver = db.User.Find(id);
+                    post.Sender = sender;
+                    post.Receiver = sender;
 
-                    post.Sender = userSender;
-                    post.Receiver = userReciver;
-
-                    userReciver.Posts.Add(post);
+                    sender.Posts.Add(post);
                     db.SaveChanges();
                 }
             }
         }
 
-        [System.Web.Http.HttpGet]
-        public List<Post> List(int? id)
+        public int Hej()
         {
-            User user = db.User.Find(id);
-            return user.Posts.ToList();
+            return 0;
         }
+
+
+
+
+
+
+
+
+        //public List<string> Test()
+        //{
+        //    List<string> lista = new List<string>();
+        //    var hej = "hej";
+        //    var hello = "hello";
+        //    lista.Add(hej);
+        //    lista.Add(hello);
+
+        //    return lista;
+        //}
+
+        //[System.Web.Http.HttpGet]
+        //public List<Post> List(int? id)
+        //{
+        //    User user = db.User.Find(id);
+        //    return user.Posts.ToList();
+        //}
     }
 }

@@ -79,14 +79,14 @@
             <h4 class="breadcrumb">Vill du skriva ett nytt inlägg?<i class="glyphicon glyphicon-pencil"></i></h4>
 
             <form id="postForm">
-                @using (Html.BeginForm("Create", "Posts", new { id = Model.Id }, FormMethod.Post))
+                @*@using (Html.BeginForm("Create", "MyApi", new { id = Model.Id }, FormMethod.Post))
                 {
-                    @Html.AntiForgeryToken()
+                    @Html.AntiForgeryToken()*@
 
                     <textarea required maxlength="200" draggable="true" name="Message" id="Message" class="form-control" cols="20" rows="2"></textarea>
                     <br />
                     <input type="submit" value="Skicka &raquo;" class="btn btn-default" id="ApiIdBtn" />
-                }
+                @*}*@
 
             </form>
         </div>
@@ -270,7 +270,26 @@ else
 
 @section Scripts{
     @Scripts.Render("~/bundles/jqueryval")
-    <script src="~/Scripts/API.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#ApiIdBtn").click(function (event) {
+                event.preventDefault();
+                var form = $("#postForm").serialize();
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/MyApi/Create/@Model.Id',
+                    data: form,
+                    dataType: 'json',
+                    success: function (data) {
+                        location.reload();
+                    },
+                    error: function (data) {
+                        alert("Funkar inte");
+                    }
+                });
+            });
+        });
+    </script>
 }
 
 
