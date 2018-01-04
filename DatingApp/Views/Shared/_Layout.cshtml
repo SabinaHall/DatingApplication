@@ -20,15 +20,9 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    @*<li>@Html.ActionLink(DatingApp.Resources.HomeText.Profile, "Loggedin", "Users")</li>*@
                     <li>@Html.ActionLink(DatingApp.Resources.HomeText.Users, "Index", "Users")</li>
                     <li>@Html.ActionLink(DatingApp.Resources.HomeText.Contact, "Contact", "Home")</li>
                     <li>@Html.ActionLink(DatingApp.Resources.HomeText.Language, "Index", "Language")</li>
-
-
-                    @*<li>@Html.ActionLink(DatingApp.Resources.HomeText.Logout, "Logout", "Users")</li>*@
-                    @*<li><input id="search" type="text" placeholder=@DatingApp.Resources.HomeText.Search></li>*@
-                    @*<li><p><a href="https://asp.net" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-search"></i></a></p></li>*@
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

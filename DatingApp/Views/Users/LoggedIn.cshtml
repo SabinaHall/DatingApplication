@@ -15,6 +15,8 @@
         <br />
         <h4>Välkommen @Model.Email, du är nu inloggad!</h4>
 
+        <p>Följer: @Model.Friends.Count</p>
+        <p>Uppdateras när du följer en ny användare.</p>
         <br />
 
         if (Model.Filename != null)
@@ -64,12 +66,21 @@
             <p><a href="~/Users/Edit/@Model.Id" class="btn btn-info">Klicka här &raquo;</a></p>
             <br />
 
-            <h4 class="breadcrumb">Vänner</h4>
+            <h4 class="breadcrumb">Följer</h4>
+            <ul>
+                @foreach (var item in Model.Friends)
+                {
+                    <li><a href="~/Users/LoggedIn/@item.To.Id">@Html.DisplayFor(modelItem => item.To.Firstname)</a></li>
+                }
+            </ul>
+            <br />
 
+
+            <h4 class="breadcrumb">Följare</h4>
             <ul>
                 @foreach (var item in Model.Friends)
                     {
-                    <li><a href="~/Users/LoggedIn/@item.To.Id">@Html.DisplayFor(modelItem => item.To.Firstname)</a></li>
+                    <li><a href="~/Users/LoggedIn/@item.From.Id">@Html.DisplayFor(modelItem => item.From.Firstname)</a></li>
                 }
             </ul>
             <br />
@@ -80,12 +91,12 @@
 
             <form id="postForm">
                 @*@using (Html.BeginForm("Create", "MyApi", new { id = Model.Id }, FormMethod.Post))
-                {
-                    @Html.AntiForgeryToken()*@
+                    {
+                        @Html.AntiForgeryToken()*@
 
-                    <textarea required maxlength="200" draggable="true" name="Message" id="Message" class="form-control" cols="20" rows="2"></textarea>
-                    <br />
-                    <input type="submit" value="Skicka &raquo;" class="btn btn-default" id="ApiIdBtn" />
+                <textarea required maxlength="200" draggable="true" name="Message" id="Message" class="form-control" cols="20" rows="2"></textarea>
+                <br />
+                <input type="submit" value="Skicka &raquo;" class="btn btn-default" id="ApiIdBtn" />
                 @*}*@
 
             </form>
@@ -113,6 +124,10 @@
 
     if (Session["Id"] != null && Model.Id != IdSession)
     {
+        <br />
+
+        <p>Följer: @Session["Friends"].ToString()</p>
+        <p>Uppdateras när du får nya följare.</p>
 
         using (Html.BeginForm("AddFriend", "Users", new { id = Model.Id }, FormMethod.Post))
         {
@@ -122,35 +137,35 @@
             <input type="submit" value="Lägg till vän" class="btn btn-info" />
         }
 
-@*bool isFriend = false;
-if (Model.Friends.Count > 0)
-{
-    foreach (var item in Model.Friends)
-    {
-        if (item.To.Id == int.Parse(Session["Id"].ToString()))
-        {
-            <p>Du följer den här personen.</p>
-                        isFriend = true;
-                        break;
-                    }
-                    if(item.From.Id == Model.Id)
+        @*bool isFriend = false;
+            if (Model.Friends.Count > 0)
+            {
+                foreach (var item in Model.Friends)
+                {
+                    if (item.To.Id == int.Parse(Session["Id"].ToString()))
                     {
                         <p>Du följer den här personen.</p>
+                                    isFriend = true;
+                                    break;
+                                }
+                                if(item.From.Id == Model.Id)
+                                {
+                                    <p>Du följer den här personen.</p>
+                                }
+                            }
+                        }
+                        if (isFriend == false)
+                        {
+                       <br />
+                       <input type="submit" value="Lägg till vän" class="btn btn-info" />
                     }
-                }
-            }
-            if (isFriend == false)
-            {
-           <br />
-           <input type="submit" value="Lägg till vän" class="btn btn-info" />
-        }
 
-            @*else 
-            {
-                    <br />
-                    <input type="submit" value="Lägg till vän" class="btn btn-info" />
-            }*@
-        
+                        @*else
+                        {
+                                <br />
+                                <input type="submit" value="Lägg till vän" class="btn btn-info" />
+                        }*@
+
 
         <br />
         if (Model.Filename != null)
@@ -194,7 +209,7 @@ if (Model.Friends.Count > 0)
                 @Html.AntiForgeryToken()
                 <textarea name="Message" id="Message" class="form-control" cols="20" rows="2"></textarea>
                 <br />
-                        <input type="submit" value="Skicka &raquo;" class="btn btn-default" />
+                <input type="submit" value="Skicka &raquo;" class="btn btn-default" />
             }
             <br />
 
@@ -245,23 +260,23 @@ else
     </div>
 
     <br />
-                <div class="col-md-4">
-                    <h4 class="breadcrumb">@Model.Firstname inlägg:</h4>
+    <div class="col-md-4">
+        <h4 class="breadcrumb">@Model.Firstname inlägg:</h4>
 
-                    <table class="table table-striped">
-                        <tr>
-                            <th>Skickat från:</th>
-                            <th>Meddelande:</th>
-                        </tr>
-                        @foreach (var item in Model.Posts)
-                        {
-                            <tr>
-                                <td>@item.Sender.Firstname</td>
-                                <td>@item.Message</td>
-                            </tr>
-                        }
-                    </table>
-                </div>
+        <table class="table table-striped">
+            <tr>
+                <th>Skickat från:</th>
+                <th>Meddelande:</th>
+            </tr>
+            @foreach (var item in Model.Posts)
+            {
+                <tr>
+                    <td>@item.Sender.Firstname</td>
+                    <td>@item.Message</td>
+                </tr>
+            }
+        </table>
+    </div>
 }
 
 

@@ -262,8 +262,6 @@
     <Content Include="Views\Users\ChangeProfilePic.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Error\Unauthorized.cshtml" />
-    <Content Include="Views\Users\_LoggedInPartial.cshtml" />
-    <Content Include="Views\Users\_CountFriendsPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

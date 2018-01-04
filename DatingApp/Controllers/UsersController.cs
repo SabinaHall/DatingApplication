@@ -238,6 +238,8 @@ namespace DatingApp.Controllers
                 if (usr != null)
                 {
                     Session["Id"] = usr.Id.ToString();
+                    Session["Friends"] = usr.Friends.Count;
+
                     return RedirectToAction("Loggedin");
                 }
                 else
@@ -278,7 +280,7 @@ namespace DatingApp.Controllers
             return RedirectToAction("index", "Home");
         }
 
-        //När man klickar på knappen så hämtar man hem dens persons id man är inne på och vem som är inloggad och sparar detta
+        //När man klickar på knappen så hämtar man hem den personens id man är inne på och vem som är inloggad och sparar detta
         //till databasen där ena är from (inloggad) och andra är to(till vem).
         public ActionResult AddFriend(int? id)
         {
