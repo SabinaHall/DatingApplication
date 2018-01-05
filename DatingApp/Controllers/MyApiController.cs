@@ -14,7 +14,6 @@ namespace DatingApp.Controllers.Api
     {
         private MyDataContext db = new MyDataContext();
 
-
         private HttpSessionStateBase GetSessionForService()
         {
             var request = HttpContext.Current.Items["MS_HttpRequestMessage"] as HttpRequestMessage;

@@ -285,9 +285,12 @@ namespace DatingApp.Controllers
 
         public ActionResult LogOut()
         {
+            Session.RemoveAll();
             Session.Clear();
             Session.Abandon();
-            Session.RemoveAll();
+            Response.AppendHeader("Cache-Control", "no-store");
+            Response.Cookies.Add(new HttpCookie("ASP.NET_SessionId", ""));
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
             FormsAuthentication.SignOut();
             return RedirectToAction("index", "Home");
         }
