@@ -29,14 +29,6 @@ namespace DatingApp.Controllers.Api
         [System.Web.Http.HttpPost]
         public void Create([FromBody] Post post, int? id)
         {
-            //var session = GetSessionForService();
-            //var sessionString = session.ToString();
-            //var sessionInt = int.Parse(sessionString);
-
-            //var session = HttpContext.Current.Session;
-            //var sessionString = session.ToString();
-            //var sessionInt = int.Parse(sessionString);
-
             if (ModelState.IsValid)
             {
                 using (MyDataContext db = new MyDataContext())

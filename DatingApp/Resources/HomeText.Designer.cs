@@ -142,7 +142,7 @@ namespace DatingApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search.
+        ///   Looks up a localized string similar to Search Users.
         /// </summary>
         public static string Search {
             get {

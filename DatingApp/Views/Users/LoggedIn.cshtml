@@ -15,9 +15,15 @@
         <br />
         <h4>Välkommen @Model.Email, du är nu inloggad!</h4>
 
-        <p>Följer: @Model.Friends.Count</p>
-        <p>Uppdateras när du följer en ny användare.</p>
+        <div class="col-lg-5">
+            <p class="breadcrumb">Du följer: @Model.Friends.Count användare</p>
+        </div>
         <br />
+        <br />
+        <br />
+        <br />
+       
+        
 
         if (Model.Filename != null)
         {
@@ -69,7 +75,7 @@
             <h4 class="breadcrumb">Följer</h4>
             <ul>
                 @foreach (var item in Model.Friends)
-                {
+                    {
                     <li><a href="~/Users/LoggedIn/@item.To.Id">@Html.DisplayFor(modelItem => item.To.Firstname)</a></li>
                 }
             </ul>
@@ -125,16 +131,20 @@
     if (Session["Id"] != null && Model.Id != IdSession)
     {
         <br />
-
-        <p>Följer: @Session["Friends"].ToString()</p>
-        <p>Uppdateras när du får nya följare.</p>
+        <div class="col-lg-5">
+            <p class="breadcrumb">Du följer: @Session["Friends"].ToString() användare</p>
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
 
         using (Html.BeginForm("AddFriend", "Users", new { id = Model.Id }, FormMethod.Post))
         {
             @Html.AntiForgeryToken()
 
             <br />
-            <input type="submit" value="Lägg till vän" class="btn btn-info" />
+            <input type="submit" value="FÖLJ @Model.Firstname.ToUpper()" class="btn btn-info" />
         }
 
         @*bool isFriend = false;
@@ -186,7 +196,7 @@
 
         <div class="col-md-4">
             <h4 class="breadcrumb">Information om användare</h4>
-            <p><i class="glyphicon glyphicon-search"></i>Förnamn: @Model.Firstname</p>
+            <p>Förnamn: @Model.Firstname</p>
             <p>Efternamn: @Model.Lastname </p>
             <p>Ålder: @Model.Age</p>
             <br />
@@ -194,7 +204,7 @@
             <h4 class="breadcrumb">Vänner</h4>
             <ul>
                 @foreach (var item in Model.Friends)
-                {
+                    {
                     <li><a href="~/Users/LoggedIn/@item.To.Id">@Html.DisplayFor(modelItem => item.To.Firstname)</a></li>
                 }
             </ul>
@@ -209,7 +219,7 @@
                 @Html.AntiForgeryToken()
                 <textarea name="Message" id="Message" class="form-control" cols="20" rows="2"></textarea>
                 <br />
-                <input type="submit" value="Skicka &raquo;" class="btn btn-default" />
+                    <input type="submit" value="Skicka &raquo;" class="btn btn-default" />
             }
             <br />
 
@@ -221,7 +231,7 @@
                 </tr>
 
                 @foreach (var item in Model.Posts)
-                {
+                    {
                     <tr>
                         <td>@item.Sender.Firstname</td>
                         <td>@item.Message</td>

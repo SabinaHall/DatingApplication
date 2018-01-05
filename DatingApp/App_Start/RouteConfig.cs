@@ -16,8 +16,6 @@ namespace DatingApp
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            //HttpConfiguration config = GlobalConfiguration.Configuration;
-
             routes.MapHttpRoute(
             name: "DefaultApi",
             routeTemplate: "api/{controller}/{action}/{id}",

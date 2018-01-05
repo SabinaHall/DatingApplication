@@ -242,12 +242,12 @@ namespace DatingApp.Controllers
                 var usr = db.User.Where(u => u.Email == user.Email && u.Password == user.Password).FirstOrDefault();
                 if (usr != null)
                 {
-                    Session["Id"] = usr.Id.ToString();
-                    Session["Friends"] = usr.Friends.Count;
                     usr.SId = HttpContext.Session.SessionID;
-
                     db.SaveChanges();
 
+                    Session["Id"] = usr.Id.ToString();
+                    Session["Friends"] = usr.Friends.Count;
+               
                     return RedirectToAction("Loggedin");
                 }
                 else
