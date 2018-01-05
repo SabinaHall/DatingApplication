@@ -104,7 +104,6 @@
                 <br />
                 <input type="submit" value="Skicka &raquo;" class="btn btn-default" id="ApiIdBtn" />
                 @*}*@
-
             </form>
         </div>
 
@@ -214,31 +213,33 @@
         <div class="col-md-4">
             <h4 class="breadcrumb">Vill du skriva ett nytt inlägg?<i class="glyphicon glyphicon-pencil"></i></h4>
 
-            @using (Html.BeginForm("Create", "Posts", new { id = Model.Id }, FormMethod.Post))
-                    {
-                @Html.AntiForgeryToken()
-                <textarea name="Message" id="Message" class="form-control" cols="20" rows="2"></textarea>
+            <form id="postForm">
+                @*@using (Html.BeginForm("Create", "Posts", new { id = Model.Id }, FormMethod.Post))
+                    {*@
+                    @Html.AntiForgeryToken()
+                    <textarea name="Message" id="Message" class="form-control" cols="20" rows="2"></textarea>
+                    <br />
+                    <input type="submit" value="Skicka &raquo;" class="btn btn-default" id="ApiIdBtn" />
+                @*}*@
+                </form>
                 <br />
-                    <input type="submit" value="Skicka &raquo;" class="btn btn-default" />
-            }
-            <br />
 
-            <h4 class="breadcrumb">@Model.Firstname inlägg:</h4>
-            <table class="table table-striped">
-                <tr>
-                    <th>Skickat från:</th>
-                    <th>Meddelande:</th>
-                </tr>
-
-                @foreach (var item in Model.Posts)
-                    {
+                <h4 class="breadcrumb">@Model.Firstname inlägg:</h4>
+                <table class="table table-striped">
                     <tr>
-                        <td>@item.Sender.Firstname</td>
-                        <td>@item.Message</td>
+                        <th>Skickat från:</th>
+                        <th>Meddelande:</th>
                     </tr>
-                }
-            </table>
-        </div>
+
+                    @foreach (var item in Model.Posts)
+                    {
+                        <tr>
+                            <td>@item.Sender.Firstname</td>
+                            <td>@item.Message</td>
+                        </tr>
+                    }
+                </table>
+</div>
     }
 }
 

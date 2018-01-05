@@ -43,7 +43,7 @@ namespace DatingApp.Controllers
             return View();
         }
 
-        //POST: Posts/Create
+       // POST: Posts/Create
        //Hämtar in ett id och sätter vem som har skickat inlägget(userSender) och vem som kommer att få inlägget(UserReciver)
         [HttpPost]
         [ValidateAntiForgeryToken]
