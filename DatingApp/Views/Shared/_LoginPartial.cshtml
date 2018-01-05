@@ -15,9 +15,24 @@ else
         @Html.AntiForgeryToken()
 
         <li>@Html.ActionLink(DatingApp.Resources.HomeText.Profile, "Loggedin", "Users")</li>
-        <li>@Html.ActionLink(DatingApp.Resources.HomeText.Logout, "Logout", "Users")</li>
-
-        @*@Html.Partial("_LoggedInPartial")*@
+        <li>@Html.ActionLink(DatingApp.Resources.HomeText.Logout, "LogOut", "Users", null, new { id = "refresh" })</li>
     }
+
+    @*using (Html.BeginForm("LogOut", "Users"))
+    {
+        @Html.AntiForgeryToken()
+
+        <input type="submit" value="Logga ut &raquo;" class="btn btn-default" id="refresh" />
+    }*@
 }
 
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            $("#refresh").click(function (event) {
+                location.reload(true);
+            });
+        });
+    </script>
+}

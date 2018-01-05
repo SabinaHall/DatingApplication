@@ -2,9 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
+using System.Web.SessionState;
 
 namespace DatingApp.Controllers.Api
 {
@@ -12,55 +14,45 @@ namespace DatingApp.Controllers.Api
     {
         private MyDataContext db = new MyDataContext();
 
+
+        private HttpSessionStateBase GetSessionForService()
+        {
+            var request = HttpContext.Current.Items["MS_HttpRequestMessage"] as HttpRequestMessage;
+
+            if (request == null)
+                return null;
+
+            var httpContext = (HttpContextWrapper)request.Properties["MS_HttpContext"];
+            return httpContext.Session;
+        }
+
         [ValidateAntiForgeryToken]
         [System.Web.Http.HttpPost]
         public void Create([FromBody] Post post, int? id)
         {
+            //var session = GetSessionForService();
+            //var sessionString = session.ToString();
+            //var sessionInt = int.Parse(sessionString);
+
             //var session = HttpContext.Current.Session;
+            //var sessionString = session.ToString();
+            //var sessionInt = int.Parse(sessionString);
 
             if (ModelState.IsValid)
             {
                 using (MyDataContext db = new MyDataContext())
                 {
-                    User sender = db.User.Find(id);
+                    User userReciver = db.User.Find(id);
+                    var sessionId = HttpContext.Current.Session.SessionID;
+                    User userSender = db.User.First(x => x.SId == sessionId);
 
-                    post.Sender = sender;
-                    post.Receiver = sender;
+                    post.Receiver = userReciver;
+                    post.Sender = userSender;
 
-                    sender.Posts.Add(post);
+                    userReciver.Posts.Add(post);
                     db.SaveChanges();
                 }
             }
         }
-
-        public int Hej()
-        {
-            return 0;
-        }
-
-
-
-
-
-
-
-
-        //public List<string> Test()
-        //{
-        //    List<string> lista = new List<string>();
-        //    var hej = "hej";
-        //    var hello = "hello";
-        //    lista.Add(hej);
-        //    lista.Add(hello);
-
-        //    return lista;
-        //}
-
-        //[System.Web.Http.HttpGet]
-        //public List<Post> List(int? id)
-        //{
-        //    User user = db.User.Find(id);
-        //    return user.Posts.ToList();
-        //}
     }
 }

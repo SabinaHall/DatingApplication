@@ -46,6 +46,8 @@ namespace DatingApp.Models
 
         public byte[] File { get; internal set; }
 
+        public string SId { get; set; }
+
 
         public virtual ICollection<Post> Posts { get; set; }
         public virtual ICollection<Friend> Friends { get; set; }

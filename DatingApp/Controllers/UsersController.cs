@@ -10,13 +10,15 @@ using System.Web.Security;
 using DatingApp.Models;
 using Microsoft.AspNet.Identity;
 using System.IO;
+using System.Web.SessionState;
 
 namespace DatingApp.Controllers
 {
     public class UsersController : Controller
     {
         // GET: Users
-        //Tar in en söksträng som gör att man kan söka efter en användare, den kollar om personen är synlig och sen skriver ut de användare som matchar mot söksträngen. 
+        //Tar in en söksträng som gör att man kan söka efter en användare, 
+        //den kollar om personen är synlig och sen skriver ut de användare som matchar mot söksträngen. 
         public ActionResult Index(string searchString)
         {
             using (MyDataContext db = new MyDataContext())
@@ -72,6 +74,9 @@ namespace DatingApp.Controllers
                     {
                         user.Filename = picUpload.FileName;
                         user.ContentType = picUpload.ContentType;
+
+                        //user.SId = HttpContext.Session.SessionID;
+
                         db.User.Add(user);
 
                         using (var reader = new BinaryReader(picUpload.InputStream))
@@ -239,6 +244,9 @@ namespace DatingApp.Controllers
                 {
                     Session["Id"] = usr.Id.ToString();
                     Session["Friends"] = usr.Friends.Count;
+                    usr.SId = HttpContext.Session.SessionID;
+
+                    db.SaveChanges();
 
                     return RedirectToAction("Loggedin");
                 }
@@ -259,10 +267,13 @@ namespace DatingApp.Controllers
                 using (MyDataContext db = new MyDataContext())
                 {
                     int id = Id ?? int.Parse(Session["id"].ToString());
+
                     var user = db.User
                         .Include(i => i.Posts.Select(x => x.Sender))
                         .Include(y => y.Friends.Select(x => x.To))
+                        .Include(y => y.Friends.Select(x => x.From))
                         .First(x => x.Id == id);
+
                     return View(user);
                 }
             }
@@ -274,6 +285,7 @@ namespace DatingApp.Controllers
 
         public ActionResult LogOut()
         {
+            Session.Clear();
             Session.Abandon();
             Session.RemoveAll();
             FormsAuthentication.SignOut();
@@ -379,5 +391,6 @@ namespace DatingApp.Controllers
             }
             return View();
         }
+
     }
 }

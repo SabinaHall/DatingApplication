@@ -16,21 +16,21 @@ namespace DatingApp
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            //HttpConfiguration config = GlobalConfiguration.Configuration;
+
+            routes.MapHttpRoute(
+            name: "DefaultApi",
+            routeTemplate: "api/{controller}/{action}/{id}",
+            defaults: new { id = RouteParameter.Optional }
+            );
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
 
-            //HttpConfiguration config = GlobalConfiguration.Configuration;
 
-            //config.Routes.MapHttpRoute(
-            //name: "DefaultApi",
-            //routeTemplate: "api/{controller}/{id}",
-            //defaults: new { id = RouteParameter.Optional }
-            //);
         }
     }
-
-
 }

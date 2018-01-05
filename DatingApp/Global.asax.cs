@@ -11,7 +11,7 @@ using System.Web.Http;
 using Newtonsoft.Json.Serialization;
 using System.Web.SessionState;
 using System.Web.Http.WebHost;
-using DatingApp.App_Start;
+//using DatingApp.App_Start;
 
 namespace DatingApp
 {
@@ -23,10 +23,10 @@ namespace DatingApp
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-            GlobalConfiguration.Configure(WebApiConfig.Register);
+            //GlobalConfiguration.Configure(WebApiConfig.Register);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-        }
+        }  
 
         protected void Application_BeginRequest(Object sender, EventArgs e)
         {
@@ -41,7 +41,18 @@ namespace DatingApp
                 System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en");
                 System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en");
             }
-
         }
+
+        public override void Init()
+        {
+            this.PostAuthenticateRequest += MvcApplication_PostAuthenticateRequest;
+            base.Init();
+        }
+        void MvcApplication_PostAuthenticateRequest(object sender, EventArgs e)
+        {
+            System.Web.HttpContext.Current.SetSessionStateBehavior(
+                SessionStateBehavior.Required);
+        }
+
     }
 }

@@ -75,12 +75,12 @@
             </ul>
             <br />
 
-
             <h4 class="breadcrumb">Följare</h4>
             <ul>
                 @foreach (var item in Model.Friends)
                     {
-                    <li><a href="~/Users/LoggedIn/@item.From.Id">@Html.DisplayFor(modelItem => item.From.Firstname)</a></li>
+                    <li>@item.To.Firstname</li>
+                    @*<li><a href="~/Users/LoggedIn/@item.From.Id">@Html.DisplayFor(modelItem => item.From.Firstname)</a></li>*@
                 }
             </ul>
             <br />
