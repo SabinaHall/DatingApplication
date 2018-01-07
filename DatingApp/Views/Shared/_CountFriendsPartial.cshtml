@@ -1,11 +1,11 @@
 ﻿@model DatingApp.Models.User
 
 @if (Session["Id"] != null)
-{
-    int IdSession = int.Parse(Session["Id"].ToString());
+            {
+                int IdSession = int.Parse(Session["Id"].ToString());
 
-    if (Session["Id"] != null && Model.Id == IdSession)
-    {
+                if (Session["Id"] != null && Model.Id == IdSession)
+                {
         <li class="alert-danger">Följer: @Model.Friends.Count användare.</li>
     }
 
@@ -14,5 +14,4 @@
         <li class="alert-danger">Följer: @Session["Count"].ToString() användare.</li>
     }
 }
-
 

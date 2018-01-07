@@ -75,9 +75,6 @@ namespace DatingApp.Controllers
                     {
                         user.Filename = picUpload.FileName;
                         user.ContentType = picUpload.ContentType;
-
-                        //user.SId = HttpContext.Session.SessionID;
-
                         db.User.Add(user);
 
                         using (var reader = new BinaryReader(picUpload.InputStream))
@@ -137,7 +134,6 @@ namespace DatingApp.Controllers
             {
                 return RedirectToAction("Unauthorized", "Error");
             }
-            //return View(user);
         }
 
         //GET
@@ -329,7 +325,29 @@ namespace DatingApp.Controllers
             }
         }
 
+        //Accept friend
+        //public ActionResult AcceptFriend(int? id)
+        //{
+        //    using (MyDataContext db = new MyDataContext())
+        //    {
+        //        User user = db.User.Find(id);
+        //        foreach (var item in user.Friends)
+        //        {
+        //            if(item.IsFriend == false)
+        //            {
+        //                item.IsFriend = true;
+
+        //                db.Entry(user).State = EntityState.Modified;
+        //                db.SaveChanges();
+        //                return RedirectToAction("Loggedin", "Users");
+        //            }
+        //        }
+        //        return View();
+        //    }
+        //}
+
         //Hämtar hem rätt bild till rätt persons profil
+
         public ActionResult Image(int id)
         {
             using (MyDataContext db = new MyDataContext())
