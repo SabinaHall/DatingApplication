@@ -14,7 +14,16 @@
     {
         <br />
         <h4>Välkommen @Model.Email, du är nu inloggad!</h4>
+
+        <div class="col-lg-5">
+            <p class="breadcrumb">Du följer: @Model.Friends.Count användare</p>
+        </div>
         <br />
+        <br />
+        <br />
+        <br />
+       
+        
 
         if (Model.Filename != null)
         {
@@ -121,6 +130,13 @@
     if (Session["Id"] != null && Model.Id != IdSession)
     {
         <br />
+        <div class="col-lg-5">
+            <p class="breadcrumb">Du följer: @Session["Friends"].ToString() användare</p>
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
 
         using (Html.BeginForm("AddFriend", "Users", new { id = Model.Id }, FormMethod.Post))
         {
@@ -158,6 +174,7 @@
                                 <br />
                                 <input type="submit" value="Lägg till vän" class="btn btn-info" />
                         }*@
+
 
         <br />
         if (Model.Filename != null)
@@ -199,30 +216,30 @@
             <form id="postForm">
                 @*@using (Html.BeginForm("Create", "Posts", new { id = Model.Id }, FormMethod.Post))
                     {*@
-                @Html.AntiForgeryToken()
-                <textarea name="Message" id="Message" class="form-control" cols="20" rows="2"></textarea>
-                <br />
-                <input type="submit" value="Skicka &raquo;" class="btn btn-default" id="ApiIdBtn" />
+                    @Html.AntiForgeryToken()
+                    <textarea name="Message" id="Message" class="form-control" cols="20" rows="2"></textarea>
+                    <br />
+                    <input type="submit" value="Skicka &raquo;" class="btn btn-default" id="ApiIdBtn" />
                 @*}*@
-            </form>
-            <br />
+                </form>
+                <br />
 
-            <h4 class="breadcrumb">@Model.Firstname inlägg:</h4>
-            <table class="table table-striped">
-                <tr>
-                    <th>Skickat från:</th>
-                    <th>Meddelande:</th>
-                </tr>
-
-                @foreach (var item in Model.Posts)
-                    {
+                <h4 class="breadcrumb">@Model.Firstname inlägg:</h4>
+                <table class="table table-striped">
                     <tr>
-                        <td>@item.Sender.Firstname</td>
-                        <td>@item.Message</td>
+                        <th>Skickat från:</th>
+                        <th>Meddelande:</th>
                     </tr>
-                }
-            </table>
-        </div>
+
+                    @foreach (var item in Model.Posts)
+                    {
+                        <tr>
+                            <td>@item.Sender.Firstname</td>
+                            <td>@item.Message</td>
+                        </tr>
+                    }
+                </table>
+</div>
     }
 }
 

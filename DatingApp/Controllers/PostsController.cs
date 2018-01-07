@@ -45,29 +45,29 @@ namespace DatingApp.Controllers
 
        // POST: Posts/Create
        //Hämtar in ett id och sätter vem som har skickat inlägget(userSender) och vem som kommer att få inlägget(UserReciver)
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create([Bind(Include = "PostId,Message")] Post post, int? id)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        using (MyDataContext db = new MyDataContext())
-        //        {
-        //            int sessionId = int.Parse(Session["id"].ToString());
-        //            var userSender = db.User.First(x => x.Id == sessionId);
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "PostId,Message")] Post post, int? id)
+        {
+            if (ModelState.IsValid)
+            {
+                using (MyDataContext db = new MyDataContext())
+                {
+                    int sessionId = int.Parse(Session["id"].ToString());
+                    var userSender = db.User.First(x => x.Id == sessionId);
 
-        //            User userReciver = db.User.Find(id);
+                    User userReciver = db.User.Find(id);
 
-        //            post.Sender = userSender;
-        //            post.Receiver = userReciver;
+                    post.Sender = userSender;
+                    post.Receiver = userReciver;
 
-        //            userReciver.Posts.Add(post);
-        //            db.SaveChanges();
-        //        }
-        //        return Redirect(Request.UrlReferrer.PathAndQuery);
-        //    }
-        //    return View();
-        //}
+                    userReciver.Posts.Add(post);
+                    db.SaveChanges();
+                }
+                return Redirect(Request.UrlReferrer.PathAndQuery);
+            }
+            return View();
+        }
 
         // GET: Posts/Edit/5
         public ActionResult Edit(int? id)
