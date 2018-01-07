@@ -14,17 +14,8 @@
     {
         <br />
         <h4>Välkommen @Model.Email, du är nu inloggad!</h4>
-
-        <div class="col-lg-5">
-            <p class="breadcrumb">Du följer: @Model.Friends.Count användare</p>
-        </div>
-        <br />
-        <br />
-        <br />
         <br />
        
-        
-
         if (Model.Filename != null)
         {
             <div class="col-md-4">
@@ -129,13 +120,6 @@
 
     if (Session["Id"] != null && Model.Id != IdSession)
     {
-        <br />
-        <div class="col-lg-5">
-            <p class="breadcrumb">Du följer: @Session["Friends"].ToString() användare</p>
-        </div>
-        <br />
-        <br />
-        <br />
         <br />
 
         using (Html.BeginForm("AddFriend", "Users", new { id = Model.Id }, FormMethod.Post))

@@ -274,6 +274,10 @@ namespace DatingApp.Controllers
                         .Include(y => y.Friends.Select(x => x.From))
                         .First(x => x.Id == id);
 
+                    int idSession = int.Parse(Session["Id"].ToString());
+                    var u = db.User.First(x => x.Id == idSession);
+                    Session["Count"] = u.Friends.Count;
+
                     return View(user);
                 }
             }
