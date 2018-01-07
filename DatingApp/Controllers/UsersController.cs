@@ -61,7 +61,8 @@ namespace DatingApp.Controllers
 
         // POST: Users/Create
         //När man skapar en profil ska man kunna ladda upp en bild. Man kollar om den är ifylld eller inte och lägger till 
-        //detta till personen i databasen och läser upp bilden på profilsidan. Man kan ladda upp med bild eller utan bild. 
+        //detta till personen i databasen och läser upp bilden på profilsidan. Man kan ladda upp med bild eller utan bild då
+        //det finns en defaultbild inlagd. 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Firstname,Lastname,Age,Email,Password")] User user, HttpPostedFileBase picUpload)
