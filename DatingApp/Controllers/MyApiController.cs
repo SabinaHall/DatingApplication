@@ -14,6 +14,7 @@ namespace DatingApp.Controllers.Api
     {
         private MyDataContext db = new MyDataContext();
 
+        //Metod för att komma åt Session i en ApiController.
         private HttpSessionStateBase GetSessionForService()
         {
             var request = HttpContext.Current.Items["MS_HttpRequestMessage"] as HttpRequestMessage;

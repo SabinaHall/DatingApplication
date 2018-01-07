@@ -16,9 +16,9 @@ namespace DatingApp.Controllers
 {
     public class UsersController : Controller
     {
-        // GET: Users
+
         //Tar in en söksträng som gör att man kan söka efter en användare, 
-        //den kollar om personen är synlig och sen skriver ut de användare som matchar mot söksträngen. 
+        //den kollar om personen är synlig och sen returner de användare som matchar mot söksträngen till vyn. 
         public ActionResult Index(string searchString)
         {
             using (MyDataContext db = new MyDataContext())
@@ -274,6 +274,10 @@ namespace DatingApp.Controllers
                         .Include(y => y.Friends.Select(x => x.From))
                         .First(x => x.Id == id);
 
+                    int idSession = int.Parse(Session["Id"].ToString());
+                    var u = db.User.First(x => x.Id == idSession);
+                    Session["Count"] = u.Friends.Count;
+
                     return View(user);
                 }
             }
@@ -324,7 +328,7 @@ namespace DatingApp.Controllers
             }
         }
 
-        //Hämtar hem rätt bild till rätt persons profil
+        //Hämtar hem rätt bild till rätt persons profil.
         public ActionResult Image(int id)
         {
             using (MyDataContext db = new MyDataContext())
@@ -395,5 +399,16 @@ namespace DatingApp.Controllers
             return View();
         }
 
+        //public ActionResult CountFriends(int? id)
+        //{
+        //    using (MyDataContext db = new MyDataContext())
+        //    {
+        //        User user = db.User.Find(id);
+
+        //        Session["Count"] = user.Friends.Count;
+
+        //        return View();
+        //    }
+        //}
     }
 }
