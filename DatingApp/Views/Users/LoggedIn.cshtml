@@ -17,23 +17,62 @@
 
         if (Model.Filename != null)
         {
-            <div class="col-md-4">
-                <h4 class="breadcrumb">Profilbild <i class="glyphicon glyphicon-user"></i></h4>
-                <img height="300" width="300" src="@Url.Action("Image", new { id = Model.Id })" />
-                <br />
-                <h4>Vill du ladda upp en ny profilbild? </h4>
-                <p><a href="~/Users/ChangeProfilePic/@Model.Id" class="btn btn-info"><i class="glyphicon glyphicon-upload"></i></a></p>
-            </div>
+            <br />
+
+            using (Html.BeginForm("HidePic", "Users", new { Id = Model.Id }))
+            {
+                @Html.AntiForgeryToken()
+
+                if (Model.IsPicVisible == false)
+                {
+                    <div class="col-md-4">
+                        <h4 class="breadcrumb">Profilbild <i class="glyphicon glyphicon-user"></i></h4>
+                        <img height="300" width="300" src="@Url.Action("Image", new { id = Model.Id })" />
+                        <h4>Vill du ladda upp en ny profilbild? </h4>
+                        <p><a href="~/Users/ChangeProfilePic/@IdSession" class="btn btn-info"><i class="glyphicon glyphicon-upload"></i></a></p>
+                        <h4>Vill du dölja din profilbild?</h4>
+                        <input type="submit" value="Dölj &raquo;" class="btn btn-info" />
+                        <br />
+
+                    </div>
+                }
+                else
+                {
+                    <div class="col-md-4">
+                        <p>Du döljer din profilbild.</p>
+                        <h4>Vill du visa din profilbild?</h4>
+                        <input type="submit" value="Visa &raquo;" class="btn btn-info" />
+                        <br />
+                    </div>
+                }
+            }
         }
+
         else
         {
-            <div class="col-md-4">
-                <h4 class="breadcrumb">Profilbild <i class="glyphicon glyphicon-user"></i></h4>
-                <img height="300" width="300" src="~/Content/avatar.png" />
-                <br />
-                <h4>Vill du ladda upp en ny profilbild? </h4>
-                <p><a href="~/Users/ChangeProfilePic/@Model.Id" class="btn btn-info"><i class="glyphicon glyphicon-upload"></i></a></p>
-            </div>
+            using (Html.BeginForm("HidePic", "Users", new { Id = Model.Id }))
+            {
+                @Html.AntiForgeryToken()
+                if (Model.IsPicVisible == false)
+                {
+                    <div class="col-md-4">
+                        <img height="300" width="300" src="~/Content/avatar.png" />
+                        <h4>Vill du ladda upp en ny profilbild? </h4>
+                        <p><a href="~/Users/ChangeProfilePic/@IdSession" class="btn btn-info"><i class="glyphicon glyphicon-upload"></i></a></p>
+                        <h4> Vill du dölja din profilbild?</h4>
+                        <input type="submit" value="Dölj &raquo;" class="btn btn-info" />
+                        <br />
+                    </div>
+                }
+                else
+                {
+                    <div class="col-md-4">
+                        <p>Du döljer din profilbild.</p>
+                        <h4>Vill du visa din profilbild?</h4>
+                        <input type="submit" value="Visa &raquo;" class="btn btn-info" />
+                    </div>
+                }
+            }
         }
 
         <div class="col-md-4">
@@ -121,7 +160,8 @@
                 {
                     isFriend = true;
                     <br />
-                    <p class="alert-success">Du följer den här personen.</p>
+                    <b class="breadcrumb">Du följer den här personen.</b>
+                    <br />
                     break;
                 }
                 else
