@@ -10,7 +10,7 @@
     <br />
 
     @*Måste översätta denna:*@
-    @Html.ActionLink("Logga in", "Login", "Users", null, new { @class = "btn btn-primary btn-large" })
+    @Html.ActionLink(DatingApp.Resources.HomeText.Login,"Login", "Users", null, new { @class = "btn btn-primary btn-large" })
 </div>
 
 <div class="jumbotron">
@@ -19,7 +19,7 @@
 
     <h2>@DatingApp.Resources.HomeText.Register</h2>
     @*Måste översätta detta:*@
-    @Html.ActionLink("Registrera", "Create", "Users", null, new { @class = "btn btn-primary btn-large" })
+    @Html.ActionLink(DatingApp.Resources.HomeText.Register, "Create", "Users", null, new { @class = "btn btn-primary btn-large" })
 </div>
 
 @* Loopar ut exempelanvändare och dens bild som länk på startsidan *@
