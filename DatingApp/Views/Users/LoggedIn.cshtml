@@ -1,4 +1,6 @@
-﻿@model DatingApp.Models.User
+﻿@*Användarens profilsida.*@
+
+@model DatingApp.Models.User
 
 @{
     ViewBag.Title = "LoggedIn";
@@ -9,116 +11,119 @@
 {
     int IdSession = int.Parse(Session["Id"].ToString());
 
-    if (Session["Id"] != null && Model.Id == IdSession)
-    {
-        <br />
+    @*Om användaren är inloggad och är inne på sin egna sida.*@
+if (Session["Id"] != null && Model.Id == IdSession)
+{
+    <br />
         <h4>Välkommen @Model.Email, du är nu inloggad!</h4>
         <br />
 
-        if (Model.Filename != null)
-        {
-            <br />
+    if (Model.Filename != null)
+    {
+        <br />
+            @*Anropar HidePic-Actionen och ändrar om bilden ska synas eller inte, skickar med id så det tillhör rätt användare.*@
+using (Html.BeginForm("HidePic", "Users", new { Id = Model.Id }))
+{
+    @Html.AntiForgeryToken()
 
-            using (Html.BeginForm("HidePic", "Users", new { Id = Model.Id }))
-            {
-                @Html.AntiForgeryToken()
-
-                if (Model.IsPicVisible == false)
-                {
-                    <div class="col-md-4">
-                        <h4 class="breadcrumb">Profilbild <i class="glyphicon glyphicon-user"></i></h4>
-                        <img height="300" width="300" src="@Url.Action("Image", new { id = Model.Id })" />
-                        <h4>Vill du ladda upp en ny profilbild? </h4>
-                        <p><a href="~/Users/ChangeProfilePic/@IdSession" class="btn btn-info"><i class="glyphicon glyphicon-upload"></i></a></p>
-                        <h4>Vill du dölja din profilbild?</h4>
-                        <input type="submit" value="Dölj &raquo;" class="btn btn-info" />
-                        <br />
-
-                    </div>
-                }
-                else
-                {
-                    <div class="col-md-4">
-                        <p>Du döljer din profilbild.</p>
-                        <h4>Vill du visa din profilbild?</h4>
-                        <input type="submit" value="Visa &raquo;" class="btn btn-info" />
-                        <br />
-                    </div>
-                }
-            }
-        }
-
-        else
-        {
-            using (Html.BeginForm("HidePic", "Users", new { Id = Model.Id }))
-            {
-                @Html.AntiForgeryToken()
-                if (Model.IsPicVisible == false)
-                {
-                    <div class="col-md-4">
-                        <img height="300" width="300" src="~/Content/avatar.png" />
-                        <h4>Vill du ladda upp en ny profilbild? </h4>
-                        <p><a href="~/Users/ChangeProfilePic/@IdSession" class="btn btn-info"><i class="glyphicon glyphicon-upload"></i></a></p>
-                        <h4> Vill du dölja din profilbild?</h4>
-                        <input type="submit" value="Dölj &raquo;" class="btn btn-info" />
-                        <br />
-                    </div>
-                }
-                else
-                {
-                    <div class="col-md-4">
-                        <p>Du döljer din profilbild.</p>
-                        <h4>Vill du visa din profilbild?</h4>
-                        <input type="submit" value="Visa &raquo;" class="btn btn-info" />
-                    </div>
-                }
-            }
-        }
-
+    if (Model.IsPicVisible == false)
+    {
         <div class="col-md-4">
-            <h4 class="breadcrumb">Information om användare <i class="glyphicon glyphicon-info-sign"></i></h4>
-            <p>Förnamn: @Model.Firstname</p>
-            <p>Efternamn: @Model.Lastname </p>
-            <p>Ålder: @Model.Age</p>
+            <h4 class="breadcrumb">Profilbild <i class="glyphicon glyphicon-user"></i></h4>
+            <img height="300" width="300" src="@Url.Action("Image", new { id = Model.Id })" />
+            <h4>Vill du ladda upp en ny profilbild? </h4>
+            <p><a href="~/Users/ChangeProfilePic/@IdSession" class="btn btn-info"><i class="glyphicon glyphicon-upload"></i></a></p>
+            <h4>Vill du dölja din profilbild?</h4>
+            <input type="submit" value="Dölj &raquo;" class="btn btn-info" />
             <br />
-            @if (Model.IsVisible == true)
+        </div>
+    }
+    else
+    {
+        <div class="col-md-4">
+            <p>Du döljer din profilbild.</p>
+            <h4>Vill du visa din profilbild?</h4>
+            <input type="submit" value="Visa &raquo;" class="btn btn-info" />
+            <br />
+        </div>
+        }
+    }
+}
+
+else
+{
+    using (Html.BeginForm("HidePic", "Users", new { Id = Model.Id }))
+    {
+        @Html.AntiForgeryToken()
+            if (Model.IsPicVisible == false)
             {
-                <p>Synlighet: Andra användare kan inte söka efter dig med sökfunktionen.</p>
+                <div class="col-md-4">
+                    <img height="300" width="300" src="~/Content/avatar.png" />
+                    <h4>Vill du ladda upp en ny profilbild? </h4>
+                    <p><a href="~/Users/ChangeProfilePic/@IdSession" class="btn btn-info"><i class="glyphicon glyphicon-upload"></i></a></p>
+                    <h4> Vill du dölja din profilbild?</h4>
+                    <input type="submit" value="Dölj &raquo;" class="btn btn-info" />
+                    <br />
+                </div>
             }
             else
             {
-                <p>Synlighet: Andra användare kan söka efter dig med sökfunktionen.</p>
+                <div class="col-md-4">
+                    <p>Du döljer din profilbild.</p>
+                    <h4>Vill du visa din profilbild?</h4>
+                    <input type="submit" value="Visa &raquo;" class="btn btn-info" />
+                </div>
             }
+        }
+    }
 
-            <h4>Vill du ändra din information?</h4>
-            <p><a href="~/Users/Edit/@Model.Id" class="btn btn-info">Klicka här &raquo;</a></p>
-            <br />
+    <div class="col-md-4">
+        <h4 class="breadcrumb">Information om användare <i class="glyphicon glyphicon-info-sign"></i></h4>
+        <p>Förnamn: @Model.Firstname</p>
+        <p>Efternamn: @Model.Lastname </p>
+        <p>Ålder: @Model.Age</p>
+        <br />
+        @if (Model.IsVisible == true)
+        {
+            <p>Synlighet: Andra användare kan inte söka efter dig med sökfunktionen.</p>
+        }
+        else
+        {
+            <p>Synlighet: Andra användare kan söka efter dig med sökfunktionen.</p>
+        }
 
-            <h4 class="breadcrumb">Följer</h4>
-            <ul>
-                @foreach (var item in Model.Friends)
+        <h4>Vill du ändra din information?</h4>
+        <p><a href="~/Users/Edit/@Model.Id" class="btn btn-info">Klicka här &raquo;</a></p>
+        <br />
+
+        @*Vilka användare användaren följer.*@
+        <h4 class="breadcrumb">Följer</h4>
+        <ul>
+            @foreach (var item in Model.Friends)
+            {
+                <li><a href="~/Users/LoggedIn/@item.To.Id">@Html.DisplayFor(modelItem => item.To.Firstname)</a></li>
+            }
+        </ul>
+        <br />
+        @*Vilka följare användaren har.*@
+        <h4 class="breadcrumb">Följare</h4>
+        <ul>
+            @using (DatingApp.Models.MyDataContext db = new DatingApp.Models.MyDataContext())
+            {
+                var hej = db.Friends.ToList();
+                foreach (var item in hej)
                 {
-                    <li><a href="~/Users/LoggedIn/@item.To.Id">@Html.DisplayFor(modelItem => item.To.Firstname)</a></li>
-                }
-            </ul>
-            <br />
-            <h4 class="breadcrumb">Följare</h4>
-            <ul>
-                @using (DatingApp.Models.MyDataContext db = new DatingApp.Models.MyDataContext())
-                {
-                    var hej = db.Friends.ToList();
-                    foreach (var item in hej)
+                    if (item.To.Id == IdSession)
                     {
-                        if (item.To.Id == IdSession)
-                        {
-                            <li><a href="~/Users/LoggedIn/@item.From.Id">@Html.DisplayFor(modelItem => item.From.Firstname)</a></li>
-                        }
+                        <li><a href="~/Users/LoggedIn/@item.From.Id">@Html.DisplayFor(modelItem => item.From.Firstname)</a></li>
                     }
                 }
-            </ul>
-            <br />
-        </div>
+            }
+        </ul>
+        <br />
+    </div>
 
+        @*Här har vi satt id på form-taggen och submit-knappen som jQuery anropar.*@
         <div class="col-md-4" id="result">
             <h4 class="breadcrumb">Vill du skriva ett nytt inlägg?<i class="glyphicon glyphicon-pencil"></i></h4>
             <form id="postForm">
@@ -145,43 +150,46 @@
                 }
             </table>
         </div>
-    }
+}
 
-    if (Session["Id"] != null && Model.Id != IdSession)
+        @*Om användaren är inloggad och är inne på någon annans sida.*@
+if (Session["Id"] != null && Model.Id != IdSession)
+{
+    <br />
+    bool isFriend = false;
+    using (DatingApp.Models.MyDataContext db = new DatingApp.Models.MyDataContext())
     {
-        <br />
-        bool isFriend = false;
-        using (DatingApp.Models.MyDataContext db = new DatingApp.Models.MyDataContext())
+        var hej = db.Friends.ToList();
+        foreach (var item in hej)
         {
-            var hej = db.Friends.ToList();
-            foreach (var item in hej)
+            if (item.To.Id == Model.Id && item.From.Id == IdSession)
             {
-                if (item.To.Id == Model.Id && item.From.Id == IdSession)
-                {
-                    isFriend = true;
-                    <br />
+                isFriend = true;
+                <br />
                     <b class="breadcrumb">Du följer den här personen.</b>
                     <br />
-                    break;
-                }
-                else
-                {
-                    isFriend = false;
-                }
+                break;
             }
-        }
-        if (isFriend == false)
-        {
-            using (Html.BeginForm("AddFriend", "Users", new { id = Model.Id }, FormMethod.Post))
+            else
             {
-                @Html.AntiForgeryToken()
-                <br />
-                <input type="submit" value="FÖLJ @Model.Firstname.ToUpper()" class="btn btn-info" />
+                isFriend = false;
             }
         }
-
+    }
+    if (isFriend == false)
+    {
+        using (Html.BeginForm("AddFriend", "Users", new { id = Model.Id }, FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <br />
+                <input type="submit" value="FÖLJ @Model.Firstname.ToUpper()" class="btn btn-info" />
+        }
+    }
+    <br />
+    if (Model.Filename != null)
+    {
         <br />
-        if (Model.Filename != null)
+        if (Model.IsPicVisible == false)
         {
             <div class="col-md-4">
                 <h4 class="breadcrumb">Profilbild</h4>
@@ -191,41 +199,57 @@
         else
         {
             <div class="col-md-4">
+                <p>Användaren döljer sin profilbild.</p>
+            </div>
+        }
+    }
+    else
+    {
+        if (Model.IsPicVisible == true)
+        {
+            <div class="col-md-4">
+                <p>Användaren döljer sin profilbild.</p>
+            </div>
+        }
+        else
+        {
+            <div class="col-md-4">
                 <h4 class="breadcrumb">Profilbild <i class="glyphicon glyphicon-user"></i></h4>
                 <img height="300" width="300" src="~/Content/avatar.png" />
             </div>
         }
+    }
 
-        <div class="col-md-4">
-            <h4 class="breadcrumb">Information om användare</h4>
-            <p>Förnamn: @Model.Firstname</p>
-            <p>Efternamn: @Model.Lastname </p>
-            <p>Ålder: @Model.Age</p>
-            <br />
+    <div class="col-md-4">
+        <h4 class="breadcrumb">Information om användare</h4>
+        <p>Förnamn: @Model.Firstname</p>
+        <p>Efternamn: @Model.Lastname </p>
+        <p>Ålder: @Model.Age</p>
+        <br />
 
-            <h4 class="breadcrumb">Följer</h4>
-            <ul>
-                @foreach (var item in Model.Friends)
+        <h4 class="breadcrumb">Följer</h4>
+        <ul>
+            @foreach (var item in Model.Friends)
+            {
+                <li><a href="~/Users/LoggedIn/@item.To.Id">@Html.DisplayFor(modelItem => item.To.Firstname)</a></li>
+            }
+        </ul>
+        <br />
+        <h4 class="breadcrumb">Följare</h4>
+        <ul>
+            @using (DatingApp.Models.MyDataContext db = new DatingApp.Models.MyDataContext())
+            {
+                var hej = db.Friends.ToList();
+                foreach (var item in hej)
                 {
-                    <li><a href="~/Users/LoggedIn/@item.To.Id">@Html.DisplayFor(modelItem => item.To.Firstname)</a></li>
-                }
-            </ul>
-            <br />
-            <h4 class="breadcrumb">Följare</h4>
-            <ul>
-                @using (DatingApp.Models.MyDataContext db = new DatingApp.Models.MyDataContext())
-                {
-                    var hej = db.Friends.ToList();
-                    foreach (var item in hej)
+                    if (item.To.Id == Model.Id)
                     {
-                        if (item.To.Id == Model.Id)
-                        {
-                            <li><a href="~/Users/LoggedIn/@item.From.Id">@Html.DisplayFor(modelItem => item.From.Firstname)</a></li>
-                        }
+                        <li><a href="~/Users/LoggedIn/@item.From.Id">@Html.DisplayFor(modelItem => item.From.Firstname)</a></li>
                     }
                 }
-            </ul>
-        </div>
+            }
+        </ul>
+    </div>
 
         <div class="col-md-4">
             <h4 class="breadcrumb">Vill du skriva ett nytt inlägg?<i class="glyphicon glyphicon-pencil"></i></h4>
@@ -254,6 +278,7 @@
     }
 }
 
+        @*Om ingen är inloggad och är inne på någon användares sida.*@
 else
 {
     <br />
@@ -282,28 +307,29 @@ else
     </div>
 
     <br />
-    <div class="col-md-4">
-        <h4 class="breadcrumb">@Model.Firstname inlägg:</h4>
+                    <div class="col-md-4">
+                        <h4 class="breadcrumb">@Model.Firstname inlägg:</h4>
 
-        <table class="table table-striped">
-            <tr>
-                <th>Skickat från:</th>
-                <th>Meddelande:</th>
-            </tr>
-            @foreach (var item in Model.Posts)
-            {
-                <tr>
-                    <td>@item.Sender.Firstname</td>
-                    <td>@item.Message</td>
-                </tr>
-            }
-        </table>
-    </div>
+                        <table class="table table-striped">
+                            <tr>
+                                <th>Skickat från:</th>
+                                <th>Meddelande:</th>
+                            </tr>
+                            @foreach (var item in Model.Posts)
+                            {
+                                <tr>
+                                    <td>@item.Sender.Firstname</td>
+                                    <td>@item.Message</td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
 }
 
 <div class="clearfix">
 </div>
 
+@*Gör det möjligt att skicka posts via Api-Controllern med jQuery och AJAX.*@
 @section Scripts{
     @Scripts.Render("~/bundles/jqueryval")
     <script>
