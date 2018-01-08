@@ -1,4 +1,6 @@
-﻿@model IEnumerable<DatingApp.Models.User>
+﻿@*Vyn för att söka efter andra användare i appen. Anropar Actionen SearchUser som gör en koll i databasen.*@
+
+@model IEnumerable<DatingApp.Models.User>
 
 @{
     ViewBag.Title = "Index";
@@ -6,15 +8,15 @@
 
 <h2 class="breadcrumb">Sök efter användare</h2>
 
-@using (Html.BeginForm("Index", "Users", FormMethod.Get))
+@using (Html.BeginForm("SearchUser", "Users", FormMethod.Get))
 {
     <p>
-        Skriv in ett namn eller bokstav du vill söka efter 
-        @Html.TextBox("SearchString", null,  new {required = "required" }) 
-        
+        Skriv in ett namn eller bokstav du vill söka efter
+        @Html.TextBox("SearchString", null, new { required = "required", @class = "form-control" })
+
         <br />
         <br />
-        <input type="submit" value="Sök" id="btnSubmit" class="btn btn-primary" />
+        <input type="submit" value="Sök" id="btnSubmit" class="btn btn-info" />
     </p>
 }
 

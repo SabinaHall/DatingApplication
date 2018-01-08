@@ -1,4 +1,6 @@
-﻿
+﻿@*Här görs en if som kollar om en användare är inloggad, och visar då andra saker i headern.
+    Anropas i _Layout.*@
+
 @{
     ViewBag.Title = "_LoginPartial";
 }
@@ -12,14 +14,14 @@
     </div>
 }
 
-else
+@if (Session["id"] != Session["ModelId"])
 {
     using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li>@Html.ActionLink(DatingApp.Resources.HomeText.Profile, "Loggedin", "Users")</li>
+                <li>@Html.ActionLink(DatingApp.Resources.HomeText.Profile, "Loggedin", "Users", new { Id = int.Parse(Session["Id"].ToString()) }, null)</li>
                 <li>@Html.ActionLink(DatingApp.Resources.HomeText.Logout, "LogOut", "Users")</li>
                 @Html.Partial("_CountFriendsPartial")
             </ul>

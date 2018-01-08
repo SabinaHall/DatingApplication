@@ -1,4 +1,7 @@
-﻿
+﻿@*Skriver ut hur många följare den inloggade användaren har i headern.
+    Anropas i _LoginPartial.
+*@
+
 @using (DatingApp.Models.MyDataContext db = new DatingApp.Models.MyDataContext())
 {
     int IdSession = int.Parse(Session["Id"].ToString());

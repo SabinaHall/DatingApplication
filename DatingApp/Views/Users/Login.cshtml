@@ -1,4 +1,6 @@
-﻿@model DatingApp.Models.User
+﻿@*Vyn för att logga in.*@
+
+@model DatingApp.Models.User
 
 @{
     ViewBag.Title = "Login";
@@ -6,13 +8,11 @@
 }
 
 
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <br />
-
     <div class="form-horizontal">
         <h3 class="breadcrumb">Skriv in ditt namn och lösenord.</h3>
         <hr />

@@ -144,6 +144,9 @@
   <data name="Register" xml:space="preserve">
     <value>Vill du registrera dig?</value>
   </data>
+  <data name="RegisterBtn" xml:space="preserve">
+    <value>Registrera</value>
+  </data>
   <data name="Search" xml:space="preserve">
     <value>Sök Användare</value>
   </data>

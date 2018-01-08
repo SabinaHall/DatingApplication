@@ -144,6 +144,9 @@
   <data name="Register" xml:space="preserve">
     <value>Do you want to register?</value>
   </data>
+  <data name="RegisterBtn" xml:space="preserve">
+    <value>Register</value>
+  </data>
   <data name="Search" xml:space="preserve">
     <value>Search Users</value>
   </data>

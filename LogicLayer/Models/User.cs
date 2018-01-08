@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
-
-//using System.Web.Mvc;
 
 namespace DatingApp.Models
 {
+    //Våran tabell för användare. 
     public class User
     { 
         public int Id { get; set; }
@@ -40,18 +35,17 @@ namespace DatingApp.Models
 
         public bool IsVisible { get; set; }
 
-        //internal set
         public string Filename { get; set; }
 
-        //internal set
         public string ContentType { get; set; }
 
-        //internal set
         public byte[] File { get; set; }
 
         public string SId { get; set; }
 
+        public bool IsPicVisible { get; set; }
 
+        //Beskriver relationerna i databasen. Här att en användare kan ha många posts och följare. 
         public virtual ICollection<Post> Posts { get; set; }
         public virtual ICollection<Friend> Friends { get; set; }
 

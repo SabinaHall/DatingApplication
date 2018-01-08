@@ -8,9 +8,7 @@
 <div class="jumbotron">
     <h1>@DatingApp.Resources.HomeText.Login</h1>
     <br />
-
-    @*Måste översätta denna:*@
-    @Html.ActionLink(DatingApp.Resources.HomeText.Login,"Login", "Users", null, new { @class = "btn btn-primary btn-large" })
+    @Html.ActionLink(DatingApp.Resources.HomeText.Login, "Login", "Users", null, new { @class = "btn btn-primary btn-large" })
 </div>
 
 <div class="jumbotron">
@@ -18,11 +16,10 @@
 
 
     <h2>@DatingApp.Resources.HomeText.Register</h2>
-    @*Måste översätta detta:*@
-    @Html.ActionLink(DatingApp.Resources.HomeText.Register, "Create", "Users", null, new { @class = "btn btn-primary btn-large" })
+    @Html.ActionLink(DatingApp.Resources.HomeText.RegisterBtn, "Create", "Users", null, new { @class = "btn btn-primary btn-large" })
 </div>
 
-@* Loopar ut exempelanvändare och dens bild som länk på startsidan *@
+@* Loopar ut exempelanvändare och dess bild som länk på startsidan *@
 <div class="row">
     @{ int i = 0;
         foreach (var item in Model)
@@ -52,7 +49,6 @@
         }
     }
 </div>
-
 
 <div class="clearfix"></div>
 

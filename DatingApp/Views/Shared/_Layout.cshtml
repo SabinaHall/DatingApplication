@@ -20,7 +20,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink(DatingApp.Resources.HomeText.Search, "Index", "Users")</li>
+                    <li>@Html.ActionLink(DatingApp.Resources.HomeText.Search, "SearchUser", "Users")</li>
                     <li>@Html.ActionLink(DatingApp.Resources.HomeText.Contact, "Contact", "Home")</li>
                     <li>@Html.ActionLink(DatingApp.Resources.HomeText.Language, "Index", "Language")</li>
                 </ul>
@@ -37,7 +37,6 @@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
-
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>

@@ -142,6 +142,15 @@ namespace DatingApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Register.
+        /// </summary>
+        public static string RegisterBtn {
+            get {
+                return ResourceManager.GetString("RegisterBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search Users.
         /// </summary>
         public static string Search {

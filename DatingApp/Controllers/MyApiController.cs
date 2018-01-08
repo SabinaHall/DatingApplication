@@ -1,19 +1,15 @@
 ﻿using DatingApp.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
-using System.Web.SessionState;
 
 namespace DatingApp.Controllers.Api
 {
     public class MyApiController : ApiController
     {
-        private MyDataContext db = new MyDataContext();
-
+        //Metod för att få åtkomst till Session i Api-Controller.
         private HttpSessionStateBase GetSessionForService()
         {
             var request = HttpContext.Current.Items["MS_HttpRequestMessage"] as HttpRequestMessage;
@@ -25,6 +21,7 @@ namespace DatingApp.Controllers.Api
             return httpContext.Session;
         }
 
+        //Skapar en post som skickas med jQuery och AJAX till Api-Controllern. 
         [ValidateAntiForgeryToken]
         [System.Web.Http.HttpPost]
         public void Create([FromBody] Post post, int? id)

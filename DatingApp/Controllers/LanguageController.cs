@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
+﻿using System.Globalization;
 using System.Threading;
 using System.Web;
 using System.Web.Mvc;
@@ -10,12 +7,13 @@ namespace DatingApp.Controllers
 {
     public class LanguageController : Controller
     {
-        // GET: Language
         public ActionResult Index()
         {
             return View();
         }
 
+        //Tar in cookien för att kolla vad det nuvarande språket är. 
+        //Culture ändrar t.ex. hur man skriver ut tiden beroende på vilket land man är.
         public ActionResult Change(string LanguageAbbreviation)
         {
             if (LanguageAbbreviation != null)
@@ -28,7 +26,6 @@ namespace DatingApp.Controllers
             Response.Cookies.Add(cookie);
 
             return View("Index");
-
         }
 
     }
