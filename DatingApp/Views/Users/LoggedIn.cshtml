@@ -72,7 +72,7 @@
                     {
                         if (item.To.Id == IdSession)
                         {
-                            <li>@item.From.Firstname</li>
+                            <li><a href="~/Users/LoggedIn/@item.From.Id">@Html.DisplayFor(modelItem => item.From.Firstname)</a></li>
                         }
                     }
                 }
