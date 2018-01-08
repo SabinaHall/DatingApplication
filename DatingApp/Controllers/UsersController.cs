@@ -124,9 +124,16 @@ namespace DatingApp.Controllers
             {
                 using (MyDataContext db = new MyDataContext())
                 {
-                    //var hej = new User { Firstname = user.Firstname, Email = user.Email };
-                    db.Entry(user).State = EntityState.Modified;
+                    var userToEdit = db.User.Find(user.Id);
+
+                    userToEdit.Firstname = user.Firstname;
+                    userToEdit.Lastname = user.Lastname;
+                    userToEdit.Age = user.Age;
+                    userToEdit.Email = user.Email;
+                    userToEdit.Password = user.Password;
+
                     db.SaveChanges();
+                    
                     return RedirectToAction("Loggedin", "Users");
                 }
             }
