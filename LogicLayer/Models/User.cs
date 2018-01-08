@@ -4,7 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
+
+//using System.Web.Mvc;
 
 namespace DatingApp.Models
 {
@@ -42,9 +43,11 @@ namespace DatingApp.Models
         //internal set
         public string Filename { get; set; }
 
-        public string ContentType { get; internal set; }
+        //internal set
+        public string ContentType { get; set; }
 
-        public byte[] File { get; internal set; }
+        //internal set
+        public byte[] File { get; set; }
 
         public string SId { get; set; }
 
