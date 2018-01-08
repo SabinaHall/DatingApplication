@@ -243,7 +243,7 @@ namespace DatingApp.Controllers
                     db.SaveChanges();
 
                     Session["Id"] = usr.Id.ToString();
-                    Session["Friends"] = usr.Friends.Count;
+                    //Session["Friends"] = usr.Friends.Count;
                
                     return RedirectToAction("Loggedin");
                 }
@@ -272,8 +272,12 @@ namespace DatingApp.Controllers
                         .First(x => x.Id == id);
 
                     int idSession = int.Parse(Session["Id"].ToString());
-                    var u = db.User.First(x => x.Id == idSession);
-                    Session["Count"] = u.Friends.Count;
+                    var followers = db.Friends
+                        .Select(x => x.To)
+                        .Where(x => x.Id == idSession)
+                        .ToList();
+
+                    Session["CountFollowers"] = followers.Count;
 
                     return View(user);
                 }
@@ -325,29 +329,7 @@ namespace DatingApp.Controllers
             }
         }
 
-        //Accept friend
-        //public ActionResult AcceptFriend(int? id)
-        //{
-        //    using (MyDataContext db = new MyDataContext())
-        //    {
-        //        User user = db.User.Find(id);
-        //        foreach (var item in user.Friends)
-        //        {
-        //            if(item.IsFriend == false)
-        //            {
-        //                item.IsFriend = true;
-
-        //                db.Entry(user).State = EntityState.Modified;
-        //                db.SaveChanges();
-        //                return RedirectToAction("Loggedin", "Users");
-        //            }
-        //        }
-        //        return View();
-        //    }
-        //}
-
         //Hämtar hem rätt bild till rätt persons profil
-
         public ActionResult Image(int id)
         {
             using (MyDataContext db = new MyDataContext())
@@ -417,6 +399,5 @@ namespace DatingApp.Controllers
             }
             return View();
         }
-
     }
 }

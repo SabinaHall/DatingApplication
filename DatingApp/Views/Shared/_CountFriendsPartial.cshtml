@@ -1,17 +1,13 @@
-﻿@model DatingApp.Models.User
+﻿
+@using (DatingApp.Models.MyDataContext db = new DatingApp.Models.MyDataContext())
+{
+    int IdSession = int.Parse(Session["Id"].ToString());
+    var friends = db.Friends.ToList();
 
-@if (Session["Id"] != null)
-            {
-                int IdSession = int.Parse(Session["Id"].ToString());
-
-                if (Session["Id"] != null && Model.Id == IdSession)
-                {
-        <li class="alert-danger">Följer: @Model.Friends.Count användare.</li>
-    }
-
-    if (Session["Id"] != null && Model.Id != IdSession)
+    if (Session["Id"] != null)
     {
-        <li class="alert-danger">Följer: @Session["Count"].ToString() användare.</li>
+        <li class="alert-danger">Följare: @Session["CountFollowers"].ToString() st.</li>
     }
 }
+
 

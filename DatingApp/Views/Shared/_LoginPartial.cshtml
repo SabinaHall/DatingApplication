@@ -5,7 +5,11 @@
 
 @if (Session["Id"] == null)
 {
-    <li>@Html.ActionLink("Log in", "Login", "Users")</li>
+    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+            <li>@Html.ActionLink("Log in", "Login", "Users")</li>
+        </ul>
+    </div>
 }
 
 else
@@ -13,9 +17,12 @@ else
     using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-
-        <li>@Html.ActionLink(DatingApp.Resources.HomeText.Profile, "Loggedin", "Users")</li>
-        <li>@Html.ActionLink(DatingApp.Resources.HomeText.Logout, "LogOut", "Users")</li>
-        @*@Html.Partial("_CountFriendsPartial")*@
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink(DatingApp.Resources.HomeText.Profile, "Loggedin", "Users")</li>
+                <li>@Html.ActionLink(DatingApp.Resources.HomeText.Logout, "LogOut", "Users")</li>
+                @Html.Partial("_CountFriendsPartial")
+            </ul>
+        </div>
     }
 }

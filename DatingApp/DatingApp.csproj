@@ -262,6 +262,7 @@
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Error\Unauthorized.cshtml" />
     <Content Include="Views\Shared\_CountFriendsPartial.cshtml" />
+    <Content Include="Views\Users\CountFollowersPartial_.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
